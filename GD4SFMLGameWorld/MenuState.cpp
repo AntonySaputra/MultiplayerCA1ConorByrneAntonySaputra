@@ -14,6 +14,7 @@ MenuState::MenuState(StateStack& stack, Context context) : State(stack,context) 
 
 	mBackgroundSprite.setTexture(texture);
 
+	float offset = 20;
 
 	//a simple menu
 	sf::Text playOption;
@@ -23,14 +24,23 @@ MenuState::MenuState(StateStack& stack, Context context) : State(stack,context) 
 	playOption.setPosition(context.window->getView().getSize() / 2.0f);
 	mOptions.push_back(playOption);
 
+	sf::Text settingOption;
+	settingOption.setFont(font);
+	settingOption.setString("Settings");
+	centreOrigin(settingOption);
+	sf::FloatRect bounds = playOption.getLocalBounds();
+	settingOption.setPosition(context.window->getView().getSize() / 2.0f + sf::Vector2f(0.f, bounds.height + offset));
+	mOptions.push_back(settingOption);
+
 	sf::Text exitOption;
 	exitOption.setFont(font);
 	exitOption.setString("Exit");
 	centreOrigin(exitOption);
-	sf::FloatRect bounds = playOption.getLocalBounds();
-	exitOption.setPosition(context.window->getView().getSize() / 2.0f + sf::Vector2f(0.f, bounds.height + 20));
+	bounds = settingOption.getLocalBounds();
+	exitOption.setPosition(context.window->getView().getSize() / 2.0f + sf::Vector2f(0.f, bounds.height + offset + offset * 2.5f));
 	mOptions.push_back(exitOption);
 
+	
 }
 
 void MenuState::draw()
