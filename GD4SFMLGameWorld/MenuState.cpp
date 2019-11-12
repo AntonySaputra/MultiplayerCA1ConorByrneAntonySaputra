@@ -75,6 +75,10 @@ bool MenuState::handleEvent(const sf::Event& event)
 			requestStackPop();
 			requestStackPush(StateID::Game);
 		}
+		else if (mOptionIndex == static_cast<int>(OptionID::Setting))
+		{
+			//For now settings does nothing, later on this will open up another menu
+		}
 		else if(mOptionIndex == static_cast<int>(OptionID::Exit))
 		{
 			requestStackPop();
