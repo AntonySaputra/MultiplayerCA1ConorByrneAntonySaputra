@@ -1,6 +1,6 @@
 #include "World.hpp"
 
-World::World(sf::RenderWindow& window) : mWindow(window), mCamera(window.getDefaultView()), mTextures(), mSceneGraph(), mSceneLayers(), mWorldBounds(0.f, 0.f, mCamera.getSize().x, 2000.f), mSpawnPosition(mCamera.getSize().x/2.f, mWorldBounds.height - mCamera.getSize().y/2.f), mScrollSpeed(-50.f), mPlayerAircraft(nullptr)
+World::World(sf::RenderWindow& window) : mWindow(window), mCamera(window.getDefaultView()), mTextures(), mSceneGraph(), mSceneLayers(), mWorldBounds(0.f, 0.f, mCamera.getSize().x, mCamera.getSize().y), mSpawnPosition(mCamera.getSize().x/2.f, mWorldBounds.height - mCamera.getSize().y/2.f), mScrollSpeed(-50.f), mPlayerAircraft(nullptr)
 {
 	loadTextures();
 	buildScene();
@@ -12,7 +12,7 @@ World::World(sf::RenderWindow& window) : mWindow(window), mCamera(window.getDefa
 void World::update(sf::Time dt)
 {
 	//Scroll the world
-	mCamera.move(0.f, mScrollSpeed * dt.asSeconds());
+	//mCamera.move(0.f, mScrollSpeed * dt.asSeconds());
 
 	mPlayerAircraft->setVelocity(0.f, 0.f);
 
@@ -41,8 +41,10 @@ CommandQueue& World::getCommandQueue()
 void World::loadTextures()
 {
 	mTextures.load(TextureID::Eagle, "Media/Textures/Eagle.png");
+	mTextures.load(TextureID::Stick, "Media/Textures/Stick.png");
 	mTextures.load(TextureID::Raptor, "Media/Textures/Raptor.png");
 	mTextures.load(TextureID::Desert, "Media/Textures/Desert.png");
+	mTextures.load(TextureID::Level, "Media/Textures/LevelMap.jpg");
 }
 
 void World::buildScene()
@@ -56,19 +58,27 @@ void World::buildScene()
 	}
 
 	//Prepare the tiled background
-	sf::Texture& texture = mTextures.get(TextureID::Desert);
-	sf::IntRect textureRect(mWorldBounds);
+	sf::Texture& texture = mTextures.get(TextureID::Level);
+	sf::IntRect textureRect(mWorldBounds.top,mWorldBounds.left,texture.getSize().x,texture.getSize().y);
 	texture.setRepeated(true);
+	
+	sf::Vector2u mTextureSize = texture.getSize();
+
+	float ScaleX = mWindow.getSize().x / mTextureSize.x;
+	float ScaleY = mWindow.getSize().y / mTextureSize.y;
 
 	//Add the background sprite to the scene
 	std::unique_ptr<SpriteNode> backgroundSprite(new SpriteNode(texture, textureRect));
+	backgroundSprite->setScale(.9f, .9f);
 	backgroundSprite->setPosition(mWorldBounds.left, mWorldBounds.top);
+	
 	mSceneLayers[static_cast<int>(LayerID::Background)]->attachChild(std::move(backgroundSprite));
 
 	//Add players aircraft
-	std::unique_ptr<Aircraft> leader(new Aircraft(AircraftID::Eagle, mTextures));
+	std::unique_ptr<Aircraft> leader(new Aircraft(AircraftID::Stick, mTextures));
 	mPlayerAircraft = leader.get();
 	mPlayerAircraft->setPosition(mSpawnPosition);
+	mPlayerAircraft->setScale(0.2f, 0.2f);
 	mPlayerAircraft->setVelocity(40.f, mScrollSpeed);
 	mSceneLayers[static_cast<int>(LayerID::Air)]->attachChild(std::move(leader));
 
@@ -93,7 +103,7 @@ void World::adaptPlayerPosition()
 	position.x = std::max(position.x, viewBounds.left + borderDistance);
 	position.x = std::min(position.x, viewBounds.left + viewBounds.width - borderDistance);
 	position.y = std::max(position.y, viewBounds.top + borderDistance);
-	position.y = std::min(position.y, viewBounds.top + viewBounds.height - borderDistance);
+	position.y = std::min(position.y, viewBounds.top + viewBounds.height/2.f - borderDistance);
 	mPlayerAircraft->setPosition(position);
 }
 
@@ -108,5 +118,5 @@ void World::adaptPlayerVelocity()
 		mPlayerAircraft->setVelocity(velocity / std::sqrt(2.f));
 	}
 	//add the scrolling velocity
-	mPlayerAircraft->accelerate(0.f, mScrollSpeed);
+	//mPlayerAircraft->accelerate(0.f, mScrollSpeed);
 }

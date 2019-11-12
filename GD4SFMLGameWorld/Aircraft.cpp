@@ -11,6 +11,9 @@ TextureID toTextureID(AircraftID type)
 
 	case AircraftID::Raptor:
 		return TextureID::Raptor;
+
+	case AircraftID::Stick:
+		return TextureID::Stick;
 	}
 	return TextureID::Eagle;
 }
@@ -26,6 +29,8 @@ unsigned int Aircraft::getCategory() const
 	switch (mType)
 	{
 	case AircraftID::Eagle:
+		return static_cast<int>(CategoryID::PlayerAircraft);
+	case AircraftID::Stick:
 		return static_cast<int>(CategoryID::PlayerAircraft);
 
 	default:

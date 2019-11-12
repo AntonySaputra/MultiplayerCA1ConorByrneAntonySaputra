@@ -2,5 +2,6 @@
 enum class AircraftID
 {
 	Eagle,
-	Raptor
+	Raptor,
+	Stick
 };
