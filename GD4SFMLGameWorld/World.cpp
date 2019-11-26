@@ -1,6 +1,15 @@
 #include "World.hpp"
 
-World::World(sf::RenderWindow& window) : mWindow(window), mCamera(window.getDefaultView()), mTextures(), mSceneGraph(), mSceneLayers(), mWorldBounds(0.f, 0.f, mCamera.getSize().x, mCamera.getSize().y), mSpawnPosition(mCamera.getSize().x/2.f, mWorldBounds.height - mCamera.getSize().y/2.f), mScrollSpeed(-50.f), mPlayerAircraft(nullptr)
+World::World(sf::RenderWindow& window) 
+	: mWindow(window)
+	, mCamera(window.getDefaultView())
+	, mTextures()
+	, mSceneGraph()
+	, mSceneLayers()
+	, mWorldBounds(0.f, 0.f, mCamera.getSize().x, mCamera.getSize().y)
+	, mSpawnPosition(mCamera.getSize().x/2.f, mWorldBounds.height - mCamera.getSize().y/2.f)
+	, mGravityVelocity(800.f)
+	, mPlayerAircraft(nullptr)
 {
 	loadTextures();
 	buildScene();
@@ -79,7 +88,7 @@ void World::buildScene()
 	mPlayerAircraft = leader.get();
 	mPlayerAircraft->setPosition(mSpawnPosition);
 	mPlayerAircraft->setScale(0.4f, 0.4f);
-	mPlayerAircraft->setVelocity(100.f, mScrollSpeed);
+	//mPlayerAircraft->setVelocity(100.f, mScrollSpeed);
 	mSceneLayers[static_cast<int>(LayerID::Air)]->attachChild(std::move(leader));
 
 	//Add the two escorts
@@ -118,5 +127,5 @@ void World::adaptPlayerVelocity()
 		mPlayerAircraft->setVelocity(velocity / std::sqrt(2.f));
 	}
 	//add the scrolling velocity
-	//mPlayerAircraft->accelerate(0.f, mScrollSpeed);
+	mPlayerAircraft->accelerate(0.f, mGravityVelocity);
 }

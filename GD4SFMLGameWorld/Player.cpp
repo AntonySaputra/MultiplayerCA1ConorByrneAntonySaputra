@@ -13,6 +13,8 @@ struct AircraftMover
 	sf::Vector2f velocity;
 };
 
+
+
 Player::Player()
 {
 	//Set initial key bindings
@@ -36,7 +38,7 @@ void Player::initializeActions()
 	const float playerSpeed = 400.f;
 	mActionBindings[ActionID::MoveLeft].action = derivedAction<Aircraft>(AircraftMover(-playerSpeed, 0.f));
 	mActionBindings[ActionID::MoveRight].action = derivedAction<Aircraft>(AircraftMover(playerSpeed, 0.f));
-	mActionBindings[ActionID::MoveUp].action = derivedAction<Aircraft>(AircraftMover(0.f, -playerSpeed));
+	mActionBindings[ActionID::MoveUp].action = derivedAction<Aircraft>(AircraftMover(0.f, -playerSpeed*50));
 	mActionBindings[ActionID::MoveDown].action = derivedAction<Aircraft>(AircraftMover(0.f, playerSpeed));
 }
 
@@ -101,7 +103,7 @@ bool Player::isRealtimeAction(ActionID action)
 	{
 	case ActionID::MoveLeft:
 	case ActionID::MoveRight:
-	case ActionID::MoveUp:
+	//case ActionID::MoveUp:
 	case ActionID::MoveDown:
 		return true;
 
