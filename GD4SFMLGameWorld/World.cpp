@@ -41,10 +41,10 @@ CommandQueue& World::getCommandQueue()
 void World::loadTextures()
 {
 	mTextures.load(TextureID::Eagle, "Media/Textures/Eagle.png");
-	mTextures.load(TextureID::Stick, "Media/Textures/Stick.png");
+	mTextures.load(TextureID::Stick, "Media/Textures/BlueStick.png");
 	mTextures.load(TextureID::Raptor, "Media/Textures/Raptor.png");
 	mTextures.load(TextureID::Desert, "Media/Textures/Desert.png");
-	mTextures.load(TextureID::Level, "Media/Textures/LevelMap.jpg");
+	mTextures.load(TextureID::Level, "Media/Textures/LevelMap.png");
 }
 
 void World::buildScene()
@@ -69,7 +69,7 @@ void World::buildScene()
 
 	//Add the background sprite to the scene
 	std::unique_ptr<SpriteNode> backgroundSprite(new SpriteNode(texture, textureRect));
-	backgroundSprite->setScale(.9f, .9f);
+	//backgroundSprite->setScale(.9f, .9f);
 	backgroundSprite->setPosition(mWorldBounds.left, mWorldBounds.top);
 	
 	mSceneLayers[static_cast<int>(LayerID::Background)]->attachChild(std::move(backgroundSprite));
@@ -78,8 +78,8 @@ void World::buildScene()
 	std::unique_ptr<Aircraft> leader(new Aircraft(AircraftID::Stick, mTextures));
 	mPlayerAircraft = leader.get();
 	mPlayerAircraft->setPosition(mSpawnPosition);
-	mPlayerAircraft->setScale(0.2f, 0.2f);
-	mPlayerAircraft->setVelocity(40.f, mScrollSpeed);
+	mPlayerAircraft->setScale(0.4f, 0.4f);
+	mPlayerAircraft->setVelocity(100.f, mScrollSpeed);
 	mSceneLayers[static_cast<int>(LayerID::Air)]->attachChild(std::move(leader));
 
 	//Add the two escorts
@@ -103,7 +103,7 @@ void World::adaptPlayerPosition()
 	position.x = std::max(position.x, viewBounds.left + borderDistance);
 	position.x = std::min(position.x, viewBounds.left + viewBounds.width - borderDistance);
 	position.y = std::max(position.y, viewBounds.top + borderDistance);
-	position.y = std::min(position.y, viewBounds.top + viewBounds.height/2.f - borderDistance);
+	position.y = std::min(position.y, viewBounds.top + viewBounds.height - borderDistance);
 	mPlayerAircraft->setPosition(position);
 }
 

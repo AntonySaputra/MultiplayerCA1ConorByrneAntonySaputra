@@ -6,5 +6,8 @@ enum class TextureID
 	Desert,
 	Stick,
 	Level,
-	TitleScreen
+	TitleScreen,
+	ButtonNormal,
+	ButtonSelected,
+	ButtonPressed
 };

@@ -7,10 +7,10 @@
 #include "Container.hpp"
 #include "Button.hpp"
 
-class MenuState : public State
+class LobbyState : public State
 {
 public:
-	MenuState(StateStack& stack, Context context);
+	LobbyState(StateStack& stack, Context context);
 
 	virtual void draw();
 	virtual bool update(sf::Time dt);
