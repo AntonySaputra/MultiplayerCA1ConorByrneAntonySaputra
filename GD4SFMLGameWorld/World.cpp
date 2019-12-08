@@ -49,10 +49,8 @@ CommandQueue& World::getCommandQueue()
 
 void World::loadTextures()
 {
-	mTextures.load(TextureID::Eagle, "Media/Textures/Eagle.png");
 	mTextures.load(TextureID::Stick, "Media/Textures/BlueStick.png");
 	mTextures.load(TextureID::Raptor, "Media/Textures/Raptor.png");
-	mTextures.load(TextureID::Desert, "Media/Textures/Desert.png");
 	mTextures.load(TextureID::Level, "Media/Textures/LevelMap.png");
 }
 
