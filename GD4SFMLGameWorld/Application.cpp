@@ -9,7 +9,7 @@
 const sf::Time Application::TimePerFrame = sf::seconds(1.f / 60.f);
 
 Application::Application()
-	: mWindow(sf::VideoMode(1920, 1080),"Stack States", sf::Style::Close),
+	: mWindow(sf::VideoMode(1200, 720),"Stack States", sf::Style::Close),
 	mTextures(),
 	mFonts(),
 	mPlayer(),
@@ -21,7 +21,7 @@ Application::Application()
 	mWindow.setKeyRepeatEnabled(false);
 
 	mFonts.load(FontID::Main, "Media/Sansation.ttf");
-	mTextures.load(TextureID::TitleScreen, "Media/Textures/TitleScreen.png");
+	mTextures.load(TextureID::TitleScreen, "Media/Textures/copy_page.png"); 
 	mTextures.load(TextureID::ButtonNormal, "Media/Textures/ButtonNormal.png");
 	mTextures.load(TextureID::ButtonSelected, "Media/Textures/ButtonSelected.png");
 	mTextures.load(TextureID::ButtonPressed, "Media/Textures/ButtonPressed.png");
@@ -61,11 +61,11 @@ void Application::run()
 void Application::processInput()
 {
 	sf::Event event;
-	while (mWindow.pollEvent(event))
+	while (mWindow.pollEvent(event)) //while the window is putting events on the event queue do the following loop, NOTE:poll Event puts event on top of Event Queue
 	{
-		mStateStack.handleEvent(event);
+		mStateStack.handleEvent(event); //
 
-		if (event.type == sf::Event::Closed)
+		if (event.type == sf::Event::Closed) //if the event is "Closed" than close the window.
 		{
 			mWindow.close();
 		}

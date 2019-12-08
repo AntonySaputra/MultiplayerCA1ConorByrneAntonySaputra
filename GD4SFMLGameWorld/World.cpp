@@ -83,6 +83,8 @@ void World::buildScene()
 	
 	mSceneLayers[static_cast<int>(LayerID::Background)]->attachChild(std::move(backgroundSprite));
 
+
+
 	//Add players aircraft
 	std::unique_ptr<Aircraft> leader(new Aircraft(AircraftID::Stick, mTextures));
 	mPlayerAircraft = leader.get();
