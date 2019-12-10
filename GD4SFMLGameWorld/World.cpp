@@ -8,7 +8,7 @@ World::World(sf::RenderWindow& window)
 	, mSceneLayers()
 	, mWorldBounds(0.f, 0.f, mCamera.getSize().x, mCamera.getSize().y)
 	, mSpawnPosition(mCamera.getSize().x/2.f, mWorldBounds.height - mCamera.getSize().y/2.f)
-	, mGravityVelocity(800.f)
+	, mGravityVelocity(80.0f)
 	, mPlayerAircraft(nullptr)
 {
 	loadTextures();
