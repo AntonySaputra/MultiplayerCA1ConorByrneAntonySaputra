@@ -49,10 +49,8 @@ CommandQueue& World::getCommandQueue()
 
 void World::loadTextures()
 {
-	mTextures.load(TextureID::Eagle, "Media/Textures/Eagle.png");
 	mTextures.load(TextureID::Stick, "Media/Textures/BlueStick.png");
 	mTextures.load(TextureID::Raptor, "Media/Textures/Raptor.png");
-	mTextures.load(TextureID::Desert, "Media/Textures/Desert.png");
 	mTextures.load(TextureID::Level, "Media/Textures/LevelMap.png");
 }
 
@@ -82,6 +80,8 @@ void World::buildScene()
 	backgroundSprite->setPosition(mWorldBounds.left, mWorldBounds.top);
 	
 	mSceneLayers[static_cast<int>(LayerID::Background)]->attachChild(std::move(backgroundSprite));
+
+
 
 	//Add players aircraft
 	std::unique_ptr<Aircraft> leader(new Aircraft(AircraftID::Stick, mTextures));

@@ -37,7 +37,7 @@ void StateStack::handleEvent(const sf::Event& event)
 	//Iterate from top to bottom, stop as soon handleEvent() returns false
 	for (auto itr = mStack.rbegin(); itr != mStack.rend(); ++itr)
 	{
-		if (!(*itr)->handleEvent(event))
+		if (!(*itr)->handleEvent(event)) //Not sure what this line does.
 		{
 			break;
 		}

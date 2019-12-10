@@ -6,8 +6,8 @@ int main()
 {
 	try 
 	{
-		Application theAmazingGame;
-		theAmazingGame.run();
+		Application AntonyAndConor;
+		AntonyAndConor.run();
 	}
 	catch (std::exception& e)
 	{
