@@ -38,7 +38,7 @@ void Player::initializeActions()
 	const float playerSpeed = 400.f;
 	mActionBindings[ActionID::MoveLeft].action = derivedAction<Aircraft>(AircraftMover(-playerSpeed, 0.f));
 	mActionBindings[ActionID::MoveRight].action = derivedAction<Aircraft>(AircraftMover(playerSpeed, 0.f));
-	mActionBindings[ActionID::MoveUp].action = derivedAction<Aircraft>(AircraftMover(0.f, -playerSpeed*5));
+	mActionBindings[ActionID::MoveUp].action = derivedAction<Aircraft>([](Aircraft& a, sf::Time) {a.jump(); });
 	mActionBindings[ActionID::MoveDown].action = derivedAction<Aircraft>(AircraftMover(0.f, playerSpeed));
 }
 
@@ -103,7 +103,7 @@ bool Player::isRealtimeAction(ActionID action)
 	{
 	case ActionID::MoveLeft:
 	case ActionID::MoveRight:
-	//case ActionID::MoveUp:
+		//case ActionID::MoveUp:
 	case ActionID::MoveDown:
 		return true;
 
