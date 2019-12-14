@@ -4,7 +4,7 @@
 #include "ResourceIdentifiers.hpp"
 #include "SceneNode.hpp"
 #include "SpriteNode.hpp"
-#include "Aircraft.hpp"
+#include "Stickman.hpp"
 #include "LayerID.hpp"
 #include "CommandQueue.hpp"
 
@@ -48,5 +48,5 @@ private:
 	sf::Vector2f mSpawnPosition;
 	float mGravityVelocity;
 	float mScrollSpeed;
-	Aircraft* mPlayerAircraft;
+	Stickman* mPlayerStickman;
 };

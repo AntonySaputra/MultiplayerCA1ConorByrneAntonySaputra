@@ -136,7 +136,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="ActionID.hpp" />
-    <ClInclude Include="Aircraft.hpp" />
     <ClInclude Include="AircraftID.hpp" />
     <ClInclude Include="Application.hpp" />
     <ClInclude Include="Button.hpp" />
@@ -165,13 +164,13 @@
     <ClInclude Include="StateID.hpp" />
     <ClInclude Include="StateStack.hpp" />
     <ClInclude Include="StateStackActionID.hpp" />
+    <ClInclude Include="Stickman.hpp" />
     <ClInclude Include="Utility.hpp" />
     <ClInclude Include="TextureID.hpp" />
     <ClInclude Include="TitleState.hpp" />
     <ClInclude Include="World.hpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Aircraft.cpp" />
     <ClCompile Include="Application.cpp" />
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="Command.cpp" />
@@ -192,6 +191,7 @@
     <ClCompile Include="SpriteNode.cpp" />
     <ClCompile Include="State.cpp" />
     <ClCompile Include="StateStack.cpp" />
+    <ClCompile Include="Stickman.cpp" />
     <ClCompile Include="TitleState.cpp" />
     <ClCompile Include="Utility.cpp" />
     <ClCompile Include="World.cpp" />

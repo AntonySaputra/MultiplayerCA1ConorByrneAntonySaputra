@@ -1,12 +1,12 @@
 #include "Player.hpp"
-#include "Aircraft.hpp"
+#include "Stickman.hpp"
 #include "CommandQueue.hpp"
 
-struct AircraftMover
+struct StickmanMover
 {
-	AircraftMover(float vx, float vy) : velocity(vx, vy) {}
+	StickmanMover(float vx, float vy) : velocity(vx, vy) {}
 
-	void operator()(Aircraft& aircraft, sf::Time) const
+	void operator()(Stickman& aircraft, sf::Time) const
 	{
 		aircraft.accelerate(velocity);
 	}
@@ -36,10 +36,10 @@ Player::Player()
 void Player::initializeActions()
 {
 	const float playerSpeed = 400.f;
-	mActionBindings[ActionID::MoveLeft].action = derivedAction<Aircraft>(AircraftMover(-playerSpeed, 0.f));
-	mActionBindings[ActionID::MoveRight].action = derivedAction<Aircraft>(AircraftMover(playerSpeed, 0.f));
-	mActionBindings[ActionID::MoveUp].action = derivedAction<Aircraft>([](Aircraft& a, sf::Time) {a.jump(); });
-	mActionBindings[ActionID::MoveDown].action = derivedAction<Aircraft>(AircraftMover(0.f, playerSpeed));
+	mActionBindings[ActionID::MoveLeft].action = derivedAction<Stickman>(StickmanMover(-playerSpeed, 0.f));
+	mActionBindings[ActionID::MoveRight].action = derivedAction<Stickman>(StickmanMover(playerSpeed, 0.f));
+	mActionBindings[ActionID::MoveUp].action = derivedAction<Stickman>([](Stickman& a, sf::Time) {a.jump(); });
+	mActionBindings[ActionID::MoveDown].action = derivedAction<Stickman>(StickmanMover(0.f, playerSpeed));
 }
 
 void Player::handleEvent(const sf::Event& event, CommandQueue& commands)

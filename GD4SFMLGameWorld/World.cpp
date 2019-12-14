@@ -9,7 +9,7 @@ World::World(sf::RenderWindow& window)
 	, mWorldBounds(0.f, 0.f, mCamera.getSize().x, mCamera.getSize().y)
 	, mSpawnPosition(mCamera.getSize().x/2.f, mWorldBounds.height - mCamera.getSize().y/2.f)
 	, mGravityVelocity(80.0f)
-	, mPlayerAircraft(nullptr)
+	, mPlayerStickman(nullptr)
 {
 	loadTextures();
 	buildScene();
@@ -23,7 +23,7 @@ void World::update(sf::Time dt)
 	//Scroll the world
 	//mCamera.move(0.f, mScrollSpeed * dt.asSeconds());
 
-	mPlayerAircraft->setVelocity(0.f, 0.f);
+	mPlayerStickman->setVelocity(0.f, 0.f);
 
 	//Forward commands to the scene graph, adapt velocity
 	while (!mCommandQueue.isEmpty())
@@ -83,22 +83,15 @@ void World::buildScene()
 
 
 
-	//Add players aircraft
-	std::unique_ptr<Aircraft> leader(new Aircraft(AircraftID::Stick, mTextures));
-	mPlayerAircraft = leader.get();
-	mPlayerAircraft->setPosition(mSpawnPosition);
-	mPlayerAircraft->setScale(0.4f, 0.4f);
+	//Add players Stickman
+	std::unique_ptr<Stickman> leader(new Stickman(AircraftID::Stick, mTextures));
+	mPlayerStickman = leader.get();
+	mPlayerStickman->setPosition(mSpawnPosition);
+	mPlayerStickman->setScale(0.4f, 0.4f);
 	//mPlayerAircraft->setVelocity(100.f, mScrollSpeed);
 	mSceneLayers[static_cast<int>(LayerID::Air)]->attachChild(std::move(leader));
 
-	//Add the two escorts
-	std::unique_ptr<Aircraft> leftEscort(new Aircraft(AircraftID::Raptor, mTextures));
-	leftEscort->setPosition(-80.f, 50.f);
-	mPlayerAircraft->attachChild(std::move(leftEscort));
-
-	std::unique_ptr<Aircraft> rightEscort(new Aircraft(AircraftID::Raptor, mTextures));
-	rightEscort->setPosition(80.f, 50.f);
-	mPlayerAircraft->attachChild(std::move(rightEscort));
+	
 	
 }
 
@@ -108,23 +101,23 @@ void World::adaptPlayerPosition()
 	sf::FloatRect viewBounds(mCamera.getCenter() - mCamera.getSize() / 2.f, mCamera.getSize());
 	const float borderDistance = 40.f;
 
-	sf::Vector2f position = mPlayerAircraft->getPosition();
+	sf::Vector2f position = mPlayerStickman->getPosition();
 	position.x = std::max(position.x, viewBounds.left + borderDistance);
 	position.x = std::min(position.x, viewBounds.left + viewBounds.width - borderDistance);
 	position.y = std::max(position.y, viewBounds.top + borderDistance);
 	position.y = std::min(position.y, viewBounds.top + viewBounds.height - borderDistance);
-	mPlayerAircraft->setPosition(position);
+	mPlayerStickman->setPosition(position);
 }
 
 void World::adaptPlayerVelocity()
 {
 	//Don't give the player an advantage of they move diagonally
-	sf::Vector2f velocity = mPlayerAircraft->getVelocity();
+	sf::Vector2f velocity = mPlayerStickman->getVelocity();
 
 	//If moving diagonally, reduce the velocity by root 2
 	if (velocity.x != 0 && velocity.y != 0)
 	{
-		mPlayerAircraft->setVelocity(velocity / std::sqrt(2.f));
+		mPlayerStickman->setVelocity(velocity / std::sqrt(2.f));
 	}
 	//add the scrolling velocity
 	//mPlayerAircraft->accelerate(0.f, mGravityVelocity);
