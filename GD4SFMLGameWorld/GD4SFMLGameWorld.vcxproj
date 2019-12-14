@@ -136,7 +136,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="ActionID.hpp" />
-    <ClInclude Include="AircraftID.hpp" />
+    <ClInclude Include="StickmanID.hpp" />
     <ClInclude Include="Application.hpp" />
     <ClInclude Include="Button.hpp" />
     <ClInclude Include="CategoryID.hpp" />
@@ -144,6 +144,7 @@
     <ClInclude Include="CommandQueue.hpp" />
     <ClInclude Include="Component.hpp" />
     <ClInclude Include="Container.hpp" />
+    <ClInclude Include="DataTable.hpp" />
     <ClInclude Include="Entity.hpp" />
     <ClInclude Include="FontID.hpp" />
     <ClInclude Include="Game.hpp" />
@@ -177,6 +178,7 @@
     <ClCompile Include="CommandQueue.cpp" />
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="Container.cpp" />
+    <ClCompile Include="DataTable.cpp" />
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameState.cpp" />

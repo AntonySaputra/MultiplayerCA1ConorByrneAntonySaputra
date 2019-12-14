@@ -1,34 +1,36 @@
 #include "Stickman.hpp"
 #include "ResourceHolder.hpp"
 #include "CategoryID.hpp"
+#include "DataTable.hpp"
 
 #include <iostream>	
 
-TextureID toTextureID(AircraftID type)
+namespace
+{
+	const std::vector<StickmanData> Table = initializeStickmanData();
+}
+
+
+TextureID toTextureID(StickmanID type)
 {
 	switch (type)
 	{
-	case AircraftID::Eagle:
-		return TextureID::Eagle;
-
-	case AircraftID::Raptor:
-		return TextureID::Raptor;
-
-	case AircraftID::Stick:
+	
+	case StickmanID::BlueStickman:
 		return TextureID::Stick;
 	}
 	return TextureID::Eagle;
 }
 
-Stickman::Stickman(AircraftID type, const TextureHolder& textures)
+Stickman::Stickman(StickmanID type, const TextureHolder& textures)
 	: Entity()
 	, mType(type)
-	, mSprite(textures.get(toTextureID(type)))
+	, mSprite(textures.get(Table[static_cast<int>(mType)].texture))
 	, mTimeInAir(sf::Time::Zero)
 	, mJumpImpulseTime(sf::seconds(0.3f))
 	, mJumpImpulseVel(-1300.f)
 	, mJumpHangVel(-300.0f)
-	, mMaxAirTime(sf::seconds(0.5f))
+	, mMaxAirTime(Table[static_cast<int>(mType)].maxAirTime)
 	, mMaxVelocity(-10.0f)
 	, mIsJumping(false)
 {
@@ -40,9 +42,8 @@ unsigned int Stickman::getCategory() const
 {
 	switch (mType)
 	{
-	case AircraftID::Eagle:
-		return static_cast<int>(CategoryID::PlayerAircraft);
-	case AircraftID::Stick:
+	
+	case StickmanID::BlueStickman:
 		return static_cast<int>(CategoryID::PlayerAircraft);
 
 	default:

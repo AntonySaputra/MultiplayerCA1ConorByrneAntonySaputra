@@ -84,7 +84,7 @@ void World::buildScene()
 
 
 	//Add players Stickman
-	std::unique_ptr<Stickman> leader(new Stickman(AircraftID::Stick, mTextures));
+	std::unique_ptr<Stickman> leader(new Stickman(StickmanID::BlueStickman, mTextures));
 	mPlayerStickman = leader.get();
 	mPlayerStickman->setPosition(mSpawnPosition);
 	mPlayerStickman->setScale(0.4f, 0.4f);

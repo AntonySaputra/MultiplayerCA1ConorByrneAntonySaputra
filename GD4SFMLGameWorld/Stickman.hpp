@@ -1,13 +1,13 @@
 #pragma once
 #include "Entity.hpp"
-#include "AircraftID.hpp"
+#include "StickmanID.hpp"
 #include "ResourceIdentifiers.hpp"
 #include "CommandQueue.hpp"
 
 class Stickman : public Entity
 {
 public:
-	Stickman(AircraftID type, const TextureHolder& textures);
+	Stickman(StickmanID type, const TextureHolder& textures);
 	virtual unsigned int getCategory() const;
 	void jump();
 
@@ -17,7 +17,7 @@ private:
 	virtual void updateCurrent(sf::Time dt);
 
 private:
-	AircraftID mType;
+	StickmanID mType;
 	sf::Sprite mSprite;
 	sf::Time mTimeInAir;
 	sf::Time mJumpImpulseTime;
