@@ -17,9 +17,11 @@ TextureID toTextureID(StickmanID type)
 	{
 	
 	case StickmanID::BlueStickman:
-		return TextureID::Stick;
+		return TextureID::BlueStick;
+	case StickmanID::RedStickman:
+		return TextureID::RedStick;
 	}
-	return TextureID::Eagle;
+	return TextureID::BlueStick;
 }
 
 Stickman::Stickman(StickmanID type, const TextureHolder& textures)
@@ -44,8 +46,9 @@ unsigned int Stickman::getCategory() const
 	{
 	
 	case StickmanID::BlueStickman:
-		return static_cast<int>(CategoryID::PlayerAircraft);
-
+		return static_cast<int>(CategoryID::PlayerStickman1);
+	case StickmanID::RedStickman:
+		return static_cast<int>(CategoryID::PlayerStickman2);
 	default:
 		return static_cast<int>(CategoryID::EnemyAircraft);
 	}

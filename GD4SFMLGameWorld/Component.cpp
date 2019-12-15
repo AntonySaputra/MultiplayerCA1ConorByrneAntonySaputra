@@ -1,13 +1,13 @@
 #include "Component.hpp"
 
-GUI::Component::Component()
-	:mIsSelected(false), mIsActive(false)
+GUI::Component::Component() : mIsSelected(false),mIsActive(false)
 {
 }
 
-GUI::Component::~Component()	
+GUI::Component::~Component()
 {
 }
+
 
 bool GUI::Component::isSelected() const
 {

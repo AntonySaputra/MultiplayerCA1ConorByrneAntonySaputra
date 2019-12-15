@@ -1,13 +1,12 @@
 #include "Container.hpp"
-
-#include <SFML/Window/Event.hpp>
-#include <SFML/Graphics/RenderStates.hpp>
-#include <SFML/Graphics/RenderTarget.hpp>
-#include <SFML/Graphics/Transformable.hpp>
+#include "SFML/Window/Event.hpp"
+#include "SFML/Graphics/RenderStates.hpp"
+#include "SFML/Graphics/RenderTarget.hpp"
+#include "SFML/Graphics/Transformable.hpp"
 
 GUI::Container::Container()
 	:mChildren()
-	,mSelectedChild(-1)
+	, mSelectedChild(-1)
 {
 }
 
@@ -27,7 +26,7 @@ bool GUI::Container::isSelectable() const
 
 void GUI::Container::handleEvent(const sf::Event& event)
 {
-	//If we have a selected child then give it the events
+	//If we have a selected child, then give it the events
 	if (hasSelection() && mChildren[mSelectedChild]->isActive())
 	{
 		mChildren[mSelectedChild]->handleEvent(event);
@@ -60,6 +59,7 @@ void GUI::Container::draw(sf::RenderTarget& target, sf::RenderStates states) con
 	{
 		target.draw(*child, states);
 	}
+
 }
 
 bool GUI::Container::hasSelection() const
@@ -88,7 +88,7 @@ void GUI::Container::selectNext()
 		return;
 	}
 
-	//search for next selectable component, wrap around if necessary
+	//search for the next selectable component, wrap around if necessary
 	int next = mSelectedChild;
 	do
 	{
@@ -106,7 +106,7 @@ void GUI::Container::selectPrevious()
 		return;
 	}
 
-	//search for next selectable component, wrap around if necessary
+	//search for the next selectable component, wrap around if necessary
 	int prev = mSelectedChild;
 	do
 	{

@@ -10,7 +10,7 @@ SettingState::SettingState(StateStack& stack, Context context)
 	//build key bindings and button labels
 	addButtonLabel(ActionID::MoveLeft, 150.f, "Move Left", context);
 	addButtonLabel(ActionID::MoveRight, 200.f, "Move Right", context);
-	addButtonLabel(ActionID::MoveUp, 250.f, "Move Up", context);
+	addButtonLabel(ActionID::Jump, 250.f, "Move Up", context);
 	addButtonLabel(ActionID::MoveDown, 300.f, "Move Down", context);
 
 	updateLabels();

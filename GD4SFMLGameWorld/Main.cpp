@@ -6,11 +6,12 @@ int main()
 {
 	try 
 	{
-		Application theAmazingGame;
-		theAmazingGame.run();
+		Application AntonyAndConor;
+		AntonyAndConor.run();
 	}
 	catch (std::exception& e)
 	{
 		std::cout << "\n EXCEPTION" << e.what() << std::endl;
+		int x = 10;
 	}
 }

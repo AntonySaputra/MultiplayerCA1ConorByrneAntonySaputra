@@ -3,9 +3,7 @@ enum class ActionID
 {
 	MoveLeft,
 	MoveRight,
-	MoveUp,
+	Jump,
 	MoveDown,
-	Fire,
-	LaunchMissile,
 	ActionCount
 };
