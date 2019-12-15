@@ -50,6 +50,7 @@ void Player::initializeActions()
 	mActionBindings[ActionID::MoveRight].action = derivedAction<Stickman>(StickmanMover(playerSpeed, 0.f));
 	mActionBindings[ActionID::Jump].action = derivedAction<Stickman>([](Stickman& a, sf::Time) {a.jump(); });
 	mActionBindings[ActionID::MoveDown].action = derivedAction<Stickman>(StickmanMover(0.f, playerSpeed));
+	mActionBindings[ActionID::Punch].action = derivedAction<Stickman>([](Stickman& a, sf::Time) {a.punch(); });
 }
 
 void Player::handleEvent(const sf::Event& event, CommandQueue& commands)

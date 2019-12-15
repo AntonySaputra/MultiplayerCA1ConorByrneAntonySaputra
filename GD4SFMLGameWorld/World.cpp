@@ -186,7 +186,27 @@ void World::handleCollisions()
 			auto& player1 = static_cast<Stickman&>(*pair.first);
 			auto& player2 = static_cast<Stickman&>(*pair.second);
 
-			std::cout << "Colliding players" << std::endl;
+
+			if (player1.isPunching() && !player2.isPunching())
+			{
+				std::cout << "player1 punching" << std::endl;
+				player2.getPunch();
+				player1.setPunchingStatus(false);
+			}
+			else if (!player1.isPunching() && player2.isPunching())
+			{
+				std::cout << "player2 punching" << std::endl;
+				player1.getPunch();
+				player2.setPunchingStatus(false);
+			}
+			else if(player1.isPunching() && player2.isPunching())
+			{
+				std::cout << "both punching" << std::endl;
+				player1.getPunch();
+				player2.getPunch();
+				player1.setPunchingStatus(false);
+				player2.setPunchingStatus(false);
+			}
 		}
 	}
 }
