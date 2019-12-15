@@ -1,5 +1,7 @@
 #include "World.hpp"
 
+#include <iostream>
+
 World::World(sf::RenderWindow& window) 
 	: mWindow(window)
 	, mCamera(window.getDefaultView())
@@ -33,6 +35,10 @@ void World::update(sf::Time dt)
 		mSceneGraph.onCommand(mCommandQueue.pop(), dt);
 	}
 	adaptPlayerVelocity();
+
+	// Collision detection and response
+	handleCollisions();
+
 	//Regular update, adapt position if outisde view	
 	mSceneGraph.update(dt);
 	adaptPlayerPosition();
@@ -147,3 +153,42 @@ void World::adaptPlayerVelocity()
 	//add the scrolling velocity
 	//mPlayerAircraft->accelerate(0.f, mGravityVelocity);
 }
+
+bool matchesCategories(SceneNode::Pair& colliders, CategoryID type1, CategoryID type2)
+{
+	unsigned int category1 = colliders.first->getCategory();
+	unsigned int category2 = colliders.second->getCategory();
+
+	// Make sure first pair entry has category type1 and second has type2
+	if (((static_cast<int>(type1))& category1) && ((static_cast<int>(type2))& category2))
+	{
+		return true;
+	}
+	else if (((static_cast<int>(type1))& category2) && ((static_cast<int>(type2))& category1))
+	{
+		std::swap(colliders.first, colliders.second);
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
+
+void World::handleCollisions()
+{
+	std::set<SceneNode::Pair> collisionPairs;
+	mSceneGraph.checkSceneCollision(mSceneGraph, collisionPairs);
+	for (SceneNode::Pair pair : collisionPairs)
+	{
+		if (matchesCategories(pair, CategoryID::PlayerStickman1, CategoryID::PlayerStickman2))
+		{
+			auto& player1 = static_cast<Stickman&>(*pair.first);
+			auto& player2 = static_cast<Stickman&>(*pair.second);
+
+			std::cout << "Colliding players" << std::endl;
+		}
+	}
+}
+
+

@@ -9,6 +9,9 @@ class Stickman : public Entity
 public:
 	Stickman(StickmanID type, const TextureHolder& textures);
 	virtual unsigned int getCategory() const;
+	virtual sf::FloatRect getBoundingRect() const;
+	virtual bool isMarkedForRemoval() const;
+
 	void jump();
 
 private:
@@ -26,5 +29,6 @@ private:
 	sf::Time mMaxAirTime;
 	float mMaxVelocity;
 	bool mIsJumping;
+	bool mIsMarkedForRemoval;
 
 };

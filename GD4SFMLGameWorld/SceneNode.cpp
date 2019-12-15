@@ -1,6 +1,13 @@
 #include "SceneNode.hpp"
 #include "CategoryID.hpp"
+#include "Utility.hpp"
+
+#include <SFML/Graphics/RectangleShape.hpp>
+#include <SFML/Graphics/RenderTarget.hpp>
+
 #include <cassert>
+#include <algorithm>
+#include <cmath>
 
 SceneNode::SceneNode():mChildren(), mParent(nullptr)
 {
@@ -44,8 +51,31 @@ sf::Transform SceneNode::getWorldTransform() const
 	return transform;
 }
 
+sf::FloatRect SceneNode::getBoundingRect() const
+{
+	return sf::FloatRect();
+}
+
+void SceneNode::checkSceneCollision(SceneNode& sceneGraph, std::set<Pair>& collisionPairs)
+{
+	checkNodeCollision(sceneGraph, collisionPairs);
+
+	for (Ptr& child : sceneGraph.mChildren)
+		checkSceneCollision(*child, collisionPairs);
+}
+
+void SceneNode::checkNodeCollision(SceneNode& node, std::set<Pair>& collisionPairs)
+{
+	if (this != &node && collision(*this, node) && !isDestroyed() && !node.isDestroyed())
+		collisionPairs.insert(std::minmax(this, &node));
+
+	for (Ptr& child : mChildren)
+		child->checkNodeCollision(node, collisionPairs);
+}
+
 unsigned int SceneNode::getCategory() const
 {
+	//flag for trouble later on for collision
 	return static_cast<int>(CategoryID::Scene);
 }
 
@@ -62,6 +92,16 @@ void SceneNode::onCommand(const Command& command, sf::Time dt)
 	{
 		child->onCommand(command, dt);
 	}
+}
+
+bool SceneNode::isDestroyed() const
+{
+	return false;
+}
+
+bool SceneNode::isMarkedForRemoval() const
+{
+	return isDestroyed();
 }
 
 void SceneNode::updateCurrent(sf::Time dt)
@@ -84,6 +124,9 @@ void SceneNode::draw(sf::RenderTarget& target, sf::RenderStates states) const
 	//Draw node and the children
 	drawCurrent(target, states);
 	drawChildren(target, states);
+
+	// Draw bounding rectangle - disabled by default
+	drawBoundingRect(target, states);
 }
 
 void SceneNode::drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const
@@ -97,4 +140,28 @@ void SceneNode::drawChildren(sf::RenderTarget& target, sf::RenderStates states) 
 	{
 		child->draw(target, states);
 	}
+}
+
+void SceneNode::drawBoundingRect(sf::RenderTarget& target, sf::RenderStates states) const
+{
+	sf::FloatRect rect = getBoundingRect();
+
+	sf::RectangleShape shape;
+	shape.setPosition(sf::Vector2f(rect.left, rect.top));
+	shape.setSize(sf::Vector2f(rect.width, rect.height));
+	shape.setFillColor(sf::Color::Transparent);
+	shape.setOutlineColor(sf::Color::Green);
+	shape.setOutlineThickness(1.f);
+
+	target.draw(shape);
+}
+
+float distance(const SceneNode& lhs, const SceneNode& rhs)
+{
+	return length(lhs.getWorldPosition() - rhs.getWorldPosition());
+}
+
+bool collision(const SceneNode& lhs, const SceneNode& rhs)
+{
+	return lhs.getBoundingRect().intersects(rhs.getBoundingRect());
 }

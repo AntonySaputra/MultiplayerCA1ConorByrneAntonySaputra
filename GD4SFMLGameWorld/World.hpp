@@ -34,6 +34,7 @@ private:
 	void buildScene();
 	void adaptPlayerPosition();
 	void adaptPlayerVelocity();
+	void handleCollisions();
 
 private:
 	sf::RenderWindow& mWindow;

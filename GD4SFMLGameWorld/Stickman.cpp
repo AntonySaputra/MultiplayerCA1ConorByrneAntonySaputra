@@ -35,6 +35,7 @@ Stickman::Stickman(StickmanID type, const TextureHolder& textures)
 	, mMaxAirTime(Table[static_cast<int>(mType)].maxAirTime)
 	, mMaxVelocity(-10.0f)
 	, mIsJumping(false)
+	, mIsMarkedForRemoval(false)
 {
 	sf::FloatRect bounds = mSprite.getLocalBounds();
 	mSprite.setOrigin(bounds.width / 2.f, bounds.height / 2.f);
@@ -52,6 +53,16 @@ unsigned int Stickman::getCategory() const
 	default:
 		return static_cast<int>(CategoryID::EnemyAircraft);
 	}
+}
+
+sf::FloatRect Stickman::getBoundingRect() const
+{
+	return getWorldTransform().transformRect(mSprite.getGlobalBounds());
+}
+
+bool Stickman::isMarkedForRemoval() const
+{
+	return mIsMarkedForRemoval;
 }
 
 void Stickman::jump()
