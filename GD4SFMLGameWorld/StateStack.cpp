@@ -2,7 +2,7 @@
 #include <cassert>
 
 StateStack::StateStack(State::Context context)
-	:mStack(),
+	: mStack(),
 	mPendingList(),
 	mContext(context),
 	mFactories()
@@ -11,7 +11,7 @@ StateStack::StateStack(State::Context context)
 
 void StateStack::update(sf::Time dt)
 {
-	//iterate from top to bottom, stop as soon as update returns false
+	//Iterate from top to bottom, stop as soon as update returns false
 	for (auto itr = mStack.rbegin(); itr != mStack.rend(); ++itr)
 	{
 		if (!(*itr)->update(dt))
@@ -19,7 +19,6 @@ void StateStack::update(sf::Time dt)
 			break;
 		}
 	}
-
 	applyPendingChanges();
 }
 
@@ -37,18 +36,17 @@ void StateStack::handleEvent(const sf::Event& event)
 	//Iterate from top to bottom, stop as soon handleEvent() returns false
 	for (auto itr = mStack.rbegin(); itr != mStack.rend(); ++itr)
 	{
-		if (!(*itr)->handleEvent(event)) //Not sure what this line does.
+		if (!(*itr)->handleEvent(event))
 		{
 			break;
 		}
 	}
 	applyPendingChanges();
-
 }
 
 void StateStack::pushState(StateID stateID)
 {
-	mPendingList.push_back(PendingChange(StateStackActionID::Push,stateID));
+	mPendingList.push_back(PendingChange(StateStackActionID::Push, stateID));
 }
 
 void StateStack::popState()
@@ -86,6 +84,7 @@ void StateStack::applyPendingChanges()
 		case StateStackActionID::Pop:
 			mStack.pop_back();
 			break;
+
 		case StateStackActionID::Clear:
 			mStack.clear();
 			break;
@@ -97,5 +96,4 @@ void StateStack::applyPendingChanges()
 StateStack::PendingChange::PendingChange(StateStackActionID action, StateID stateID) :
 	action(action), stateID(stateID)
 {
-
 }

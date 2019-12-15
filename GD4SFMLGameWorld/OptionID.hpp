@@ -2,6 +2,5 @@
 enum class OptionID
 {
 	Play,
-	Setting,
 	Exit
 };

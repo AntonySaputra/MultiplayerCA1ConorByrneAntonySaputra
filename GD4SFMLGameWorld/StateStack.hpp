@@ -22,7 +22,7 @@ class StateStack : private sf::NonCopyable
 public:
 	explicit StateStack(State::Context context);
 
-	template<typename T>
+	template<typename>
 	void registerState(StateID stateID);
 
 	void update(sf::Time dt);
@@ -54,8 +54,6 @@ private:
 
 	State::Context mContext;
 	std::map < StateID, std::function<State::Ptr()>> mFactories;
-
-
 };
 
 template<typename T>
@@ -66,3 +64,4 @@ void StateStack::registerState(StateID stateID)
 		return State::Ptr(new T(*this, mContext));
 	};
 }
+

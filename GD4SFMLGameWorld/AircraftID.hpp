@@ -1,7 +1,9 @@
 #pragma once
 enum class AircraftID
 {
-	Eagle,
+	Eagle1,
+	Eagle2,
 	Raptor,
-	Stick
+	Avenger,
+	TypeCount
 };

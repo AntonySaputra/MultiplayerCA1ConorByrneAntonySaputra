@@ -1,10 +1,11 @@
 #pragma once
+
 #include "State.hpp"
 #include "World.hpp"
 #include "Player.hpp"
 
-#include "SFML/Graphics/Sprite.hpp"
-#include "SFML/Graphics/Text.hpp"
+#include <SFML/Graphics/Sprite.hpp>
+#include <SFML/Graphics/Text.hpp>
 
 class GameState : public State
 {
@@ -17,5 +18,6 @@ public:
 
 private:
 	World mWorld;
-	Player mPlayer;
+	Player& mPlayer;
+	Player& mPlayer2;
 };

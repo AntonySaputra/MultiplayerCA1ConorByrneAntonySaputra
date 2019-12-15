@@ -1,18 +1,17 @@
 #include "TitleState.hpp"
 #include "ResourceHolder.hpp"
-
-#include "SFML/Graphics/RenderWindow.hpp"
 #include "Utility.hpp"
 
-TitleState::TitleState(StateStack& stack, Context context) : State(stack, context), mText(), mShowText(true), mTextEffectTime(sf::Time::Zero)
+#include <SFML/Graphics/RenderWindow.hpp>
+
+TitleState::TitleState(StateStack& stack, Context context) 
+	:State(stack, context), mText(), mShowText(true), mTextEffectTime(sf::Time::Zero)
 {
-	mBackgroundSprite.setTexture(context.textures->get(TextureID::TitleScreen)); //Sets the background image
-	mText.setFont(context.fonts->get(FontID::Main)); 
-	mText.setString("Press any key to start");
+	mBackgroundSprite.setTexture(context.textures->get(TextureID::TitleScreen));
+	mText.setFont(context.fonts->get(FontID::Main));
+	mText.setString("Press any key start");
 	centreOrigin(mText);
 	mText.setPosition(context.window->getView().getSize() / 2.f);
-
-
 }
 
 void TitleState::draw()
@@ -34,13 +33,12 @@ bool TitleState::update(sf::Time dt)
 		mShowText = !mShowText;
 		mTextEffectTime = sf::Time::Zero;
 	}
-
 	return true;
 }
 
 bool TitleState::handleEvent(const sf::Event& event)
 {
-	//if keypressed trigger the next state
+	//If key pressed, trigger the next state
 	if (event.type == sf::Event::KeyPressed)
 	{
 		requestStackPop();

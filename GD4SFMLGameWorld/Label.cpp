@@ -1,10 +1,11 @@
 #include "Label.hpp"
-#include "SFML/Graphics/RenderTarget.hpp"
-#include "SFML/Graphics/RenderStates.hpp"
 
-GUI::Label::Label(const std::string& text, const FontHolder& fonts) : mText(text, fonts.get(FontID::Main), 16)
+#include <SFML/Graphics/RenderTarget.hpp>
+#include <SFML/Graphics/RenderStates.hpp>
+
+GUI::Label::Label(const std::string& text, const FontHolder& fonts)
+	:mText(text, fonts.get(FontID::Main), 16)
 {
-
 }
 
 bool GUI::Label::isSelectable() const

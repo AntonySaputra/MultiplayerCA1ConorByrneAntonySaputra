@@ -3,7 +3,6 @@
 
 State::State(StateStack& stack, Context context) : mStack(&stack), mContext(context)
 {
-
 }
 
 State::~State()
@@ -31,7 +30,7 @@ State::Context State::getContext() const
 	return mContext;
 }
 
-State::Context::Context(sf::RenderWindow& window, TextureHolder& textures, FontHolder& fonts, Player& player) : 
-	window(&window), textures(&textures), fonts(&fonts), player(&player)
+State::Context::Context(sf::RenderWindow& window, TextureHolder& textures, FontHolder& font, Player& player, Player& player2 ,MusicPlayer& music, SoundPlayer& sound) : 
+	window(&window), textures(&textures), fonts(&font), player(&player), player2(&player2), music(&music), sound(&sound)
 {
 }

@@ -3,7 +3,7 @@
 #include "ResourceIdentifiers.hpp"
 #include "ResourceHolder.hpp"
 
-#include "SFML/Graphics/Text.hpp"
+#include <SFML/Graphics/Text.hpp>
 
 namespace GUI
 {
@@ -25,6 +25,5 @@ namespace GUI
 
 	private:
 		sf::Text mText;
-
 	};
 }

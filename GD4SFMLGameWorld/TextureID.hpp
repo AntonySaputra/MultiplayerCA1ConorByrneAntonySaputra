@@ -1,13 +1,11 @@
 #pragma once
 enum class TextureID
 {
-	Eagle,
-	Raptor,
-	Desert,
-	Stick,
-	Level,
+	Entities,
+	Jungle,
 	TitleScreen,
-	ButtonNormal,
-	ButtonSelected,
-	ButtonPressed
+	Buttons,
+	Explosion,
+	Particle,
+	FinishLine
 };

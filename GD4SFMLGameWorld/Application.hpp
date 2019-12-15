@@ -3,6 +3,7 @@
 #include "ResourceIdentifiers.hpp"
 #include "Player.hpp"
 #include "StateStack.hpp"
+#include "MusicPlayer.hpp"
 
 #include <SFML/System/Time.hpp>
 #include <SFML/Graphics/RenderWindow.hpp>
@@ -24,15 +25,17 @@ private:
 
 private:
 	static const sf::Time TimePerFrame;
-	
+
 	sf::RenderWindow mWindow;
 	TextureHolder mTextures;
 	FontHolder mFonts;
 	Player mPlayer;
+	Player mPlayer2;
+	SoundPlayer mSoundPlayer;
+	MusicPlayer mMusic;
 
 	StateStack mStateStack;
 
-	
 	sf::Text mStatisticText;
 	sf::Time mStatisticsUpdateTime;
 	std::size_t mStatisticsNumFrames;

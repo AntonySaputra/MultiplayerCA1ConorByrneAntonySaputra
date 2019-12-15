@@ -2,13 +2,14 @@
 #include "Component.hpp"
 #include <memory>
 #include <vector>
+
 namespace GUI
 {
 	class Container : public Component
 	{
 	public:
 		typedef std::shared_ptr<Container> Ptr;
-		
+
 	public:
 		Container();
 		void pack(Component::Ptr component);
