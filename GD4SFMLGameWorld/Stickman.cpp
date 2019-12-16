@@ -25,7 +25,7 @@ TextureID toTextureID(StickmanID type)
 }
 
 Stickman::Stickman(StickmanID type, const TextureHolder& textures)
-	: Entity()
+	: Entity(false)
 	, mDamageMultiplayer()
 	, mType(type)
 	, mSprite(textures.get(Table[static_cast<int>(mType)].texture))

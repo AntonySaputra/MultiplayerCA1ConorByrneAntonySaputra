@@ -10,7 +10,7 @@ namespace
 	const std::vector<IslandData> Table = initializeIslandData();
 }
 
-Island::Island(IslandID type, const TextureHolder& textures):Entity(),
+Island::Island(IslandID type, const TextureHolder& textures):Entity(true),
 	  mType(type)
 	, mSprite(textures.get(Table[static_cast<int>(type)].texture), Table[static_cast<int>(type)].textureRect)
 {

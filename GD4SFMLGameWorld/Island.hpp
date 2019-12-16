@@ -14,17 +14,17 @@ class Island : public Entity
 public:
 	Island(IslandID type, const TextureHolder& textures);
 
-	virtual unsigned int	getCategory() const;
-	virtual sf::FloatRect	getBoundingRect() const;
+	virtual unsigned int getCategory() const;
+	virtual sf::FloatRect getBoundingRect() const;
 
-	void 					apply(Stickman& player) const;
+	void apply(Stickman& player) const;
 
 
 protected:
-	virtual void			drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const;
+	virtual void drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const;
 
 
 private:
-	IslandID 			    mType;
-	sf::Sprite				mSprite;
+	IslandID mType;
+	sf::Sprite mSprite;
 };

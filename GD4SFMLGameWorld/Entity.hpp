@@ -5,8 +5,8 @@
 class Entity : public SceneNode
 {
 public:
-	Entity();
-	bool mIsStatic = true;
+	Entity(bool isStatic);
+
 	void setVelocity(sf::Vector2f velocity);
 	void setVelocity(float vx, float vy);
 	void accelerate(sf::Vector2f velocity);
@@ -19,4 +19,5 @@ protected:
 private:
 	sf::Vector2f mVelocity;
 	float mGravity;
+	bool mIsStatic;
 };

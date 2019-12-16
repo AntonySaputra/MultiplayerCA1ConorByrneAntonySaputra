@@ -1,7 +1,7 @@
 #include "Entity.hpp"
 
-Entity::Entity()
-	: mGravity(500.0f), mIsStatic(true)
+Entity::Entity(bool isStatic)
+	: mGravity(500.0f), mIsStatic(isStatic)
 {
 }
 
