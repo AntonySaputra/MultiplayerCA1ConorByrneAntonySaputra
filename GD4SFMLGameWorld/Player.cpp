@@ -16,8 +16,18 @@ struct StickmanMover
 
 	void operator()(Stickman& stickman, sf::Time) const
 	{
-		if(!stickman.isGetPunch())
+		if (!stickman.isGetPunch())
+		{
 			stickman.accelerate(velocity);
+			if (velocity.x < 0)
+			{
+				stickman.setDirection(-1.0f);
+			}
+			else if(velocity.x > 0)
+			{
+				stickman.setDirection(+1.0f);
+			}
+		}
 	}
 	sf::Vector2f velocity;
 };
@@ -26,11 +36,7 @@ struct StickmanMover
 
 Player::Player(PlayerID type) : mType(type)
 {
-	//Set initial key bindings
-	/*mKeyBinding[sf::Keyboard::A] = ActionID::MoveLeft;
-	mKeyBinding[sf::Keyboard::D] = ActionID::MoveRight;
-	mKeyBinding[sf::Keyboard::W] = ActionID::Jump;
-	mKeyBinding[sf::Keyboard::S] = ActionID::MoveDown;*/
+	
 
 	mKeyBinding = Table[static_cast<int>(mType)].mKeyBinding;
 
@@ -50,7 +56,6 @@ void Player::initializeActions()
 	mActionBindings[ActionID::MoveLeft].action = derivedAction<Stickman>(StickmanMover(-playerSpeed, 0.f));
 	mActionBindings[ActionID::MoveRight].action = derivedAction<Stickman>(StickmanMover(playerSpeed, 0.f));
 	mActionBindings[ActionID::Jump].action = derivedAction<Stickman>([](Stickman& a, sf::Time) {a.jump(); });
-	mActionBindings[ActionID::MoveDown].action = derivedAction<Stickman>(StickmanMover(0.f, playerSpeed));
 	mActionBindings[ActionID::Punch].action = derivedAction<Stickman>([](Stickman& a, sf::Time) {a.punch(); });
 }
 

@@ -19,7 +19,12 @@ public:
 	void setPunchingStatus(bool punchStatus);
 	bool isGetPunch();
 	void getPunch();
+	void setPunchDirection(float punchDirection);
+
+	//might be useful for animation - keep it for now
 	bool isPunching();
+	void setDirection(float direction);
+	float getDirection();
 
 private:
 	virtual void drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const;
@@ -49,4 +54,9 @@ private:
 	sf::Time mMaxPunchTime;
 	float mPunchImpulseVel;
 	float mPunchHangVel;
+	float mPunchDirectionMultiplier;
+
+	//might be useful for animation - keep it for now
+	float mFacingDirection;
+	
 };

@@ -34,9 +34,9 @@ Stickman::Stickman(StickmanID type, const TextureHolder& textures)
 	, mJumpImpulseTime(sf::seconds(0.3f))
 	, mPunchImpulseTime(mJumpImpulseTime)
 	, mJumpImpulseVel(-1300.f)
-	, mPunchImpulseVel(0.5f * mJumpImpulseVel)
+	, mPunchImpulseVel(-0.5f * mJumpImpulseVel)
 	, mJumpHangVel(-300.0f)
-	, mPunchHangVel(mJumpHangVel)
+	, mPunchHangVel(-mJumpHangVel)
 	, mMaxAirTime(Table[static_cast<int>(mType)].maxAirTime)
 	, mMaxPunchTime(0.5f * mMaxAirTime)
 	, mMaxVelocity(-10.0f)
@@ -46,6 +46,8 @@ Stickman::Stickman(StickmanID type, const TextureHolder& textures)
 	, mIsGetPunched(false)
 	, mPunchCountUp(sf::Time::Zero)
 	, mPunchInterval(sf::milliseconds(1))
+	, mPunchDirectionMultiplier(0.0f)
+	, mFacingDirection(0.0f)
 {
 	sf::FloatRect bounds = mSprite.getLocalBounds();
 	mSprite.setOrigin(bounds.width / 2.f, bounds.height / 2.f);
@@ -119,6 +121,21 @@ bool Stickman::isPunching()
 	return mIsPunching;
 }
 
+void Stickman::setDirection(float direction)
+{
+	mFacingDirection = direction;
+}
+
+float Stickman::getDirection()
+{
+	return mFacingDirection;
+}
+
+void Stickman::setPunchDirection(float punchDirection)
+{
+	mPunchDirectionMultiplier = punchDirection;
+}
+
 
 void Stickman::drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const
 {
@@ -170,12 +187,12 @@ void Stickman::checkIsPunched(sf::Time dt)
 		if (mPunchTime < mPunchImpulseTime * mDamageMultiplier)
 		{
 			std::cout << "Jumping Impulse" << std::endl;
-			accelerate(mPunchImpulseVel, 0.f);
+			accelerate(mPunchImpulseVel * mPunchDirectionMultiplier, 0.f);
 		}
 		else if (mPunchTime < mMaxPunchTime * mDamageMultiplier)
 		{
 			std::cout << "Jumping Accel" << std::endl;
-			accelerate(mPunchHangVel, 0.f);
+			accelerate(mPunchHangVel * mPunchDirectionMultiplier, 0.f);
 		}
 		else
 		{
