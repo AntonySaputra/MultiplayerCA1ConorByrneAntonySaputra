@@ -11,5 +11,6 @@ enum class TextureID
 	smallIsland2,
 	ButtonNormal,
 	ButtonSelected,
-	ButtonPressed
+	ButtonPressed,
+	RunningRight
 };

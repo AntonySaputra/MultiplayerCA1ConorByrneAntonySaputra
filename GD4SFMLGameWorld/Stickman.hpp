@@ -3,6 +3,7 @@
 #include "StickmanID.hpp"
 #include "ResourceIdentifiers.hpp"
 #include "CommandQueue.hpp"
+#include "Animation.hpp"
 
 class Stickman : public Entity
 {
@@ -14,6 +15,7 @@ public:
 
 	void jump();
 	void setTimeInAir(sf::Time time);
+
 
 	void punch();
 	void setPunchingStatus(bool punchStatus);
@@ -58,5 +60,8 @@ private:
 
 	//might be useful for animation - keep it for now
 	float mFacingDirection;
-	
+
+	Animation mRunningRight;
+	//bool isRunningRight;
+
 };

@@ -1,13 +1,12 @@
 #include "Utility.hpp"
 
-#include "SFML/Graphics/Sprite.hpp"
-#include "SFML/Graphics/Text.hpp"
+#include <SFML/Graphics/Sprite.hpp>
+#include <SFML/Graphics/Text.hpp>
 
 #include <random>
 #include <cmath>
 #include <ctime>
 #include <cassert>
-
 
 namespace
 {
@@ -19,6 +18,7 @@ namespace
 
 	auto RandomEngine = createRandomEngine();
 }
+
 
 
 void centreOrigin(sf::Sprite& sprite)
@@ -60,4 +60,9 @@ int randomInt(int exclusiveMax)
 	return distr(RandomEngine);
 }
 
+void centreOrigin(Animation& animation)
+{
+	sf::FloatRect bounds = animation.getLocalBounds();
+	animation.setOrigin(std::floor(bounds.left + bounds.width / 2.f), std::floor(bounds.top + bounds.height / 2.f));
+}
 

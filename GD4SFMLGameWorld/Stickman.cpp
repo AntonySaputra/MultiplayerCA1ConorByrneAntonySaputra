@@ -2,6 +2,8 @@
 #include "ResourceHolder.hpp"
 #include "CategoryID.hpp"
 #include "DataTable.hpp"
+#include "TextureID.hpp"
+#include "Utility.hpp"
 
 #include <iostream>	
 
@@ -15,7 +17,7 @@ TextureID toTextureID(StickmanID type)
 {
 	switch (type)
 	{
-	
+
 	case StickmanID::BlueStickman:
 		return TextureID::BlueStick;
 	case StickmanID::RedStickman:
@@ -29,6 +31,7 @@ Stickman::Stickman(StickmanID type, const TextureHolder& textures)
 	, mDamageMultiplier(Table[static_cast<int>(mType)].damageMultiplier)
 	, mType(type)
 	, mSprite(textures.get(Table[static_cast<int>(mType)].texture))
+	, mRunningRight(textures.get(TextureID::RunningRight))
 	, mTimeInAir(sf::Time::Zero)
 	, mPunchTime(sf::Time::Zero)
 	, mJumpImpulseTime(sf::seconds(0.3f))
@@ -49,15 +52,22 @@ Stickman::Stickman(StickmanID type, const TextureHolder& textures)
 	, mPunchDirectionMultiplier(0.0f)
 	, mFacingDirection(0.0f)
 {
-	sf::FloatRect bounds = mSprite.getLocalBounds();
-	mSprite.setOrigin(bounds.width / 2.f, bounds.height / 2.f);
+
+	mRunningRight.setFrameSize(sf::Vector2i(70, 90));
+	mRunningRight.setNumFrames(6);
+	mRunningRight.setDuration(sf::seconds(0.5));
+	mRunningRight.setRepeating(true);
+
+
+	centreOrigin(mRunningRight);
+	centreOrigin(mSprite);
 }
 
 unsigned int Stickman::getCategory() const
 {
 	switch (mType)
 	{
-	
+
 	case StickmanID::BlueStickman:
 		return static_cast<int>(CategoryID::PlayerStickman1);
 	case StickmanID::RedStickman:
@@ -144,7 +154,10 @@ void Stickman::setPunchDirection(float punchDirection)
 
 void Stickman::drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const
 {
-	target.draw(mSprite, states);
+	if (getVelocity().x > 0)
+		target.draw(mRunningRight, states);
+	else
+		target.draw(mSprite, states);
 }
 
 
@@ -207,12 +220,18 @@ void Stickman::checkIsPunched(sf::Time dt)
 			mPunchTime = sf::Time::Zero;
 		}
 
-		
+
 	}
 }
 
 void Stickman::updateCurrent(sf::Time dt)
 {
+
+	if (getVelocity().x > 0)
+	{
+		mRunningRight.update(dt);
+	}
+
 	checkIsJumping(dt);
 	checkIsPunched(dt);
 	punchReset(dt);

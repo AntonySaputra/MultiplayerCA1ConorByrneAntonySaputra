@@ -63,6 +63,7 @@ void World::loadTextures()
 	mTextures.load(TextureID::BlueStick, "Media/Textures/BlueStick.png");
 	mTextures.load(TextureID::RedStick, "Media/Textures/RedStick.png");
 	mTextures.load(TextureID::Level, "Media/Textures/LevelMap.png");
+	mTextures.load(TextureID::RunningRight, "Media/Textures/RunningRight.png");
 }
 
 void World::buildScene()
