@@ -1,4 +1,3 @@
-
 #pragma once
 
 #include "ResourceIdentifiers.hpp"
@@ -8,8 +7,10 @@
 
 
 #include "SFML/System/Time.hpp"
+
 #include "SFML/Graphics/Color.hpp"
 #include <SFML/Window/Event.hpp>
+#include <SFML/Graphics/Rect.hpp>
 
 #include <map>
 #include <vector>
@@ -43,6 +44,14 @@ struct PickupData
 	TextureID texture;
 };
 
+struct IslandData
+{
+	std::function<void(Stickman&)> action;
+	TextureID texture;
+	sf::IntRect textureRect;
+};
+
 std::vector<PlayerData> initializePlayerData();
 std::vector<StickmanData> initializeStickmanData();
 std::vector<PickupData> initializePickupData();
+std::vector<IslandData> initializeIslandData();

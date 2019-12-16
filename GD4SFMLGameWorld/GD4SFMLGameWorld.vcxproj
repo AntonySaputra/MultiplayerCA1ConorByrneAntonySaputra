@@ -136,6 +136,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="ActionID.hpp" />
+    <ClInclude Include="Island.hpp" />
+    <ClInclude Include="IslandID.hpp" />
     <ClInclude Include="PlayerID.hpp" />
     <ClInclude Include="StickmanID.hpp" />
     <ClInclude Include="Application.hpp" />
@@ -183,6 +185,7 @@
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameState.cpp" />
+    <ClCompile Include="Island.cpp" />
     <ClCompile Include="Label.cpp" />
     <ClCompile Include="LobbyState.cpp" />
     <ClCompile Include="Main.cpp" />

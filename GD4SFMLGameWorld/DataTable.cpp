@@ -3,6 +3,7 @@
 #include "PlayerID.hpp"
 //#include "Pickup.hpp"
 #include "StickmanID.hpp"
+#include "IslandID.hpp"
 //#include "PickupID.hpp"
 
 
@@ -42,8 +43,16 @@ std::vector<StickmanData> initializeStickmanData()
 	data[static_cast<int>(StickmanID::RedStickman)].maxAirTime = sf::seconds(0.5f);
 	data[static_cast<int>(StickmanID::RedStickman)].texture = TextureID::RedStick;
 
+	return data;
+}
 
-	
+
+std::vector<IslandData> initializeIslandData()
+{
+	std::vector<IslandData> data(static_cast<int>(IslandID::TypeCount));
+	data[static_cast<int>(IslandID::mainIsland)].texture = TextureID::mainIsland;
+	data[static_cast<int>(IslandID::mainIsland)].textureRect = sf::IntRect(0, 0, 1045, 104);
+	data[static_cast<int>(IslandID::mainIsland)].action = [](Stickman& a) { };
 
 	return data;
 }

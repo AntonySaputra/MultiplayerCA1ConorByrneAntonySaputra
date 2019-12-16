@@ -123,6 +123,12 @@
     <ClInclude Include="PlayerID.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Island.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="IslandID.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Entity.cpp">
@@ -198,6 +204,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="DataTable.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Island.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

@@ -7,5 +7,10 @@ enum class CategoryID
 	Scene = 1 << 0,
 	PlayerStickman1 = 1 << 1,
 	PlayerStickman2 = 1 << 2,
-	EnemyAircraft = 1 << 3
+	EnemyAircraft = 1 << 3,
+	mainIsland = 1 << 4,
+	Mini_Island1 = 1 << 5,
+	Mini_Island2 = 1 << 6,
+
+	Island = mainIsland | Mini_Island1 | Mini_Island2,
 };
