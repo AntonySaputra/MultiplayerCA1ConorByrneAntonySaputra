@@ -220,7 +220,20 @@ void World::handleCollisions()
 			}
 			
 		}
+		else if (matchesCategories(pair, CategoryID::mainIsland, CategoryID::PlayerStickman1))
+		{
 
+			sf::Vector2f position = mPlayerStickman->getPosition();
+			mPlayerStickman->setPosition(position.x,position.y - 8.39f);
+			std::cout << "Player 1 colliding with island" << std::endl;
+		}	
+		else if (matchesCategories(pair, CategoryID::mainIsland, CategoryID::PlayerStickman2))
+		{
+
+			sf::Vector2f position = mPlayerStickman2->getPosition();
+			mPlayerStickman2->setPosition(position.x, position.y - 8.39f);
+			std::cout << "Player 2 colliding with island" << std::endl;
+		}
 	}
 }
 
