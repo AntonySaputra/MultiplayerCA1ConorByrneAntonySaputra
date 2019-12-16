@@ -98,7 +98,7 @@ void World::buildScene()
 	std::unique_ptr<Stickman> player1(new Stickman(StickmanID::BlueStickman, mTextures));
 	mPlayerStickman = player1.get();
 	mPlayerStickman->setPosition(mSpawnPosition);
-	mPlayerStickman->setScale(0.4f, 0.4f);
+	mPlayerStickman->setScale(0.2f, 0.2f);
 	//mPlayerAircraft->setVelocity(100.f, mScrollSpeed);
 	mSceneLayers[static_cast<int>(LayerID::Air)]->attachChild(std::move(player1));
 
@@ -106,7 +106,7 @@ void World::buildScene()
 	std::unique_ptr<Stickman> player2(new Stickman(StickmanID::RedStickman, mTextures));
 	mPlayerStickman2 = player2.get();
 	mPlayerStickman2->setPosition(mSpawnPosition + sf::Vector2f(100, 0));
-	mPlayerStickman2->setScale(0.4f, 0.4f);
+	mPlayerStickman2->setScale(0.2f, 0.2f);
 	//mPlayerAircraft->setVelocity(100.f, mScrollSpeed);
 	mSceneLayers[static_cast<int>(LayerID::Air)]->attachChild(std::move(player2));
 
@@ -195,12 +195,14 @@ void World::handleCollisions()
 			auto& player1 = static_cast<Stickman&>(*pair.first);
 			auto& player2 = static_cast<Stickman&>(*pair.second);
 
+			
 
 			if (player1.isPunching() && !player2.isPunching())
 			{
 				std::cout << "player1 punching" << std::endl;
 				player2.getPunch();
 				player1.setPunchingStatus(false);
+
 			}
 			else if (!player1.isPunching() && player2.isPunching())
 			{
@@ -216,7 +218,9 @@ void World::handleCollisions()
 				player1.setPunchingStatus(false);
 				player2.setPunchingStatus(false);
 			}
+			
 		}
+
 	}
 }
 

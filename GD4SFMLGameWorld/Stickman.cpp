@@ -26,19 +26,26 @@ TextureID toTextureID(StickmanID type)
 
 Stickman::Stickman(StickmanID type, const TextureHolder& textures)
 	: Entity(false)
-	, mDamageMultiplayer()
+	, mDamageMultiplier(Table[static_cast<int>(mType)].damageMultiplier)
 	, mType(type)
 	, mSprite(textures.get(Table[static_cast<int>(mType)].texture))
 	, mTimeInAir(sf::Time::Zero)
+	, mPunchTime(sf::Time::Zero)
 	, mJumpImpulseTime(sf::seconds(0.3f))
+	, mPunchImpulseTime(mJumpImpulseTime)
 	, mJumpImpulseVel(-1300.f)
+	, mPunchImpulseVel(0.5f * mJumpImpulseVel)
 	, mJumpHangVel(-300.0f)
+	, mPunchHangVel(mJumpHangVel)
 	, mMaxAirTime(Table[static_cast<int>(mType)].maxAirTime)
+	, mMaxPunchTime(0.5f * mMaxAirTime)
 	, mMaxVelocity(-10.0f)
 	, mIsJumping(false)
 	, mIsMarkedForRemoval(false)
 	, mIsPunching(false)
 	, mIsGetPunched(false)
+	, mPunchCountUp(sf::Time::Zero)
+	, mPunchInterval(sf::milliseconds(1))
 {
 	sf::FloatRect bounds = mSprite.getLocalBounds();
 	mSprite.setOrigin(bounds.width / 2.f, bounds.height / 2.f);
@@ -74,6 +81,18 @@ void Stickman::jump()
 
 }
 
+void Stickman::punchReset(sf::Time dt)
+{
+	if (mIsPunching)
+	{
+		mPunchCountUp += dt;
+		if (mPunchCountUp >= mPunchInterval)
+		{
+			mIsPunching = false;
+		}
+	}
+}
+
 void Stickman::punch()
 {
 	mIsPunching = true;
@@ -93,7 +112,6 @@ bool Stickman::isPunching()
 {
 	return mIsPunching;
 }
-
 
 
 void Stickman::drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const
@@ -136,28 +154,32 @@ void Stickman::checkIsJumping(sf::Time dt)
 
 }
 
+
+
 void Stickman::checkIsPunched(sf::Time dt)
 {
 	if (mIsGetPunched)
 	{
-		mTimeInAir += dt;
-		if (mTimeInAir < mJumpImpulseTime)
+		mPunchTime += dt;
+		if (mPunchTime < mPunchImpulseTime * mDamageMultiplier)
 		{
 			std::cout << "Jumping Impulse" << std::endl;
-			accelerate(mJumpImpulseVel, 0.f);
+			accelerate(mPunchImpulseVel, 0.f);
 		}
-		else if (mTimeInAir < mMaxAirTime)
+		else if (mPunchTime < mMaxPunchTime * mDamageMultiplier)
 		{
 			std::cout << "Jumping Accel" << std::endl;
-			accelerate(mJumpHangVel, 0.f);
+			accelerate(mPunchHangVel, 0.f);
 		}
 		else
 		{
+			mDamageMultiplier += 0.5f;
 			std::cout << "stop jumping" << std::endl;
 			mIsGetPunched = false;
-			mTimeInAir = sf::Time::Zero;
+			mPunchTime = sf::Time::Zero;
 		}
 
+		
 	}
 }
 
@@ -165,5 +187,6 @@ void Stickman::updateCurrent(sf::Time dt)
 {
 	checkIsJumping(dt);
 	checkIsPunched(dt);
+	punchReset(dt);
 	Entity::updateCurrent(dt);
 }

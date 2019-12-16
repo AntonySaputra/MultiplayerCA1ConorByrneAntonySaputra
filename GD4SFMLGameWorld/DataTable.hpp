@@ -29,7 +29,7 @@ struct StickmanData
 {
 	//damage multiplier is replacement for HP, 
 	//the bigger it is the easier stickman go out of bounds
-	int damageMultiplier;
+	float damageMultiplier;
 	float speed;
 	TextureID texture;
 	sf::Time punchInterval;

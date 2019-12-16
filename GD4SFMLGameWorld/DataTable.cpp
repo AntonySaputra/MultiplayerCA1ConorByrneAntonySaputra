@@ -33,13 +33,13 @@ std::vector<StickmanData> initializeStickmanData()
 {
 	std::vector<StickmanData> data(static_cast<int>(StickmanID::TypeCount));
 
-	data[static_cast<int>(StickmanID::BlueStickman)].damageMultiplier = 1;
+	data[static_cast<int>(StickmanID::BlueStickman)].damageMultiplier = 1.0f;
 	data[static_cast<int>(StickmanID::BlueStickman)].speed = 400.f;
 	data[static_cast<int>(StickmanID::BlueStickman)].punchInterval = sf::seconds(1);
 	data[static_cast<int>(StickmanID::BlueStickman)].maxAirTime = sf::seconds(0.5f);
 	data[static_cast<int>(StickmanID::BlueStickman)].texture = TextureID::BlueStick;
 
-	data[static_cast<int>(StickmanID::RedStickman)].damageMultiplier = 1;
+	data[static_cast<int>(StickmanID::RedStickman)].damageMultiplier = 1.0f;
 	data[static_cast<int>(StickmanID::RedStickman)].speed = 400.f;
 	data[static_cast<int>(StickmanID::RedStickman)].punchInterval = sf::seconds(1);
 	data[static_cast<int>(StickmanID::RedStickman)].maxAirTime = sf::seconds(0.5f);
