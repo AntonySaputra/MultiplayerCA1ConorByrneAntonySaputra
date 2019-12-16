@@ -195,48 +195,67 @@ void World::handleCollisions()
 			auto& player1 = static_cast<Stickman&>(*pair.first);
 			auto& player2 = static_cast<Stickman&>(*pair.second);
 
-
-
 			if (player1.isPunching() && !player2.isPunching())
 			{
-				std::cout << "player1 punching" << std::endl;
-				player2.getPunch();
-				player1.setPunchingStatus(false);
-
+				if (player1.getPosition().x < player2.getPosition().x )
+				{
+					std::cout << "player1 punching" << std::endl;
+					player2.setPunchDirection(+1.0f);
+					player2.getPunch();
+					player1.setPunchingStatus(false);
+				}
+				else if (player1.getPosition().x > player2.getPosition().x )
+				{
+					std::cout << "player1 punching" << std::endl;
+					player2.setPunchDirection(-1.0f);
+					player2.getPunch();
+					player1.setPunchingStatus(false);
+				}
 			}
 			else if (!player1.isPunching() && player2.isPunching())
 			{
-				std::cout << "player2 punching" << std::endl;
-				player1.getPunch();
-				player2.setPunchingStatus(false);
+				if (player2.getPosition().x < player1.getPosition().x)
+				{
+					std::cout << "player2 punching" << std::endl;
+					player1.setPunchDirection(+1.0f);
+					player1.getPunch();
+					player2.setPunchingStatus(false);
+				}
+				else if (player2.getPosition().x > player1.getPosition().x)
+				{
+					std::cout << "player2 punching" << std::endl;
+					player1.setPunchDirection(-1.0f);
+					player1.getPunch();
+					player2.setPunchingStatus(false);
+				}
 			}
 			else if (player1.isPunching() && player2.isPunching())
 			{
-				std::cout << "both punching" << std::endl;
-				player1.getPunch();
-				player2.getPunch();
-				player1.setPunchingStatus(false);
-				player2.setPunchingStatus(false);
+				if (player1.getPosition().x < player2.getPosition().x)
+				{
+					std::cout << "both punching" << std::endl;
+					player1.setPunchDirection(-1.0f);
+					player2.setPunchDirection(+1.0f);
+					player1.getPunch();
+					player2.getPunch();
+					player1.setPunchingStatus(false);
+					player2.setPunchingStatus(false);
+				}
 			}
-
 		}
 
 		else if (matchesCategories(pair, CategoryID::mainIsland, CategoryID::PlayerStickman1))
 		{
-
 			auto& player = static_cast<Stickman&>(*pair.second);
 			player.accelerate(0.f, -500.0f);
-			std::cout << "Player 1 colliding with island" << std::endl;
+			//std::cout << "Player 1 colliding with island" << std::endl;
 		}	
 
 		else if (matchesCategories(pair, CategoryID::mainIsland, CategoryID::PlayerStickman2))
 		{
-
-
-
 			auto& player = static_cast<Stickman&>(*pair.second);
 			player.accelerate(0.f, -500.0f);
-			std::cout << "Player 2 colliding with island" << std::endl;
+			//std::cout << "Player 2 colliding with island" << std::endl;
 
 		}
 	}
