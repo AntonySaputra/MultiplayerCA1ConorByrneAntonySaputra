@@ -25,6 +25,6 @@ protected:
 
 
 private:
-	IslandID 				mType;
+	IslandID 			    mType;
 	sf::Sprite				mSprite;
 };

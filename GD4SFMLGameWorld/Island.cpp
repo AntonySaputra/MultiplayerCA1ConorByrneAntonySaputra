@@ -10,8 +10,8 @@ namespace
 	const std::vector<IslandData> Table = initializeIslandData();
 }
 
-Island::Island(IslandID type, const TextureHolder& textures)
-	: mType(type)
+Island::Island(IslandID type, const TextureHolder& textures):Entity(),
+	  mType(type)
 	, mSprite(textures.get(Table[static_cast<int>(type)].texture), Table[static_cast<int>(type)].textureRect)
 {
 	centreOrigin(mSprite);
