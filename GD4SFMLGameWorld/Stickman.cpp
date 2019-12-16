@@ -79,9 +79,14 @@ bool Stickman::isMarkedForRemoval() const
 
 void Stickman::jump()
 {
-	if(!mIsJumping)
+	if (!mIsJumping && mTimeInAir == sf::Time::Zero)
 		mIsJumping = true;
 
+}
+
+void Stickman::setTimeInAir(sf::Time time)
+{
+	mTimeInAir = time;
 }
 
 void Stickman::punchReset(sf::Time dt)
@@ -170,7 +175,7 @@ void Stickman::checkIsJumping(sf::Time dt)
 		{
 			std::cout << "stop jumping" << std::endl;
 			mIsJumping = false;
-			mTimeInAir = sf::Time::Zero;
+			//mTimeInAir = sf::Time::Zero;
 		}
 	}
 

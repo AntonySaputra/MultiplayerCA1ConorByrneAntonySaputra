@@ -13,7 +13,7 @@ public:
 	virtual bool isMarkedForRemoval() const;
 
 	void jump();
-	
+	void setTimeInAir(sf::Time time);
 
 	void punch();
 	void setPunchingStatus(bool punchStatus);

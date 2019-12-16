@@ -98,8 +98,7 @@ void World::buildScene()
 	std::unique_ptr<Stickman> player1(new Stickman(StickmanID::BlueStickman, mTextures));
 	mPlayerStickman = player1.get();
 	mPlayerStickman->setPosition(mSpawnPosition);
-	mPlayerStickman->setScale(0.2f, 0.2f);
-	//mPlayerAircraft->setVelocity(100.f, mScrollSpeed);
+	
 	mSceneLayers[static_cast<int>(LayerID::Air)]->attachChild(std::move(player1));
 
 	// Add player2  Stickman
@@ -249,13 +248,16 @@ void World::handleCollisions()
 		{
 			auto& player = static_cast<Stickman&>(*pair.second);
 			player.accelerate(0.f, -500.0f);
+			player.setTimeInAir(sf::Time::Zero);
 			//std::cout << "Player 1 colliding with island" << std::endl;
-		}	
+		}
 
 		else if (matchesCategories(pair, CategoryID::mainIsland, CategoryID::PlayerStickman2))
 		{
 			auto& player = static_cast<Stickman&>(*pair.second);
 			player.accelerate(0.f, -500.0f);
+			player.setTimeInAir(sf::Time::Zero);
+
 			//std::cout << "Player 2 colliding with island" << std::endl;
 
 		}
