@@ -58,6 +58,8 @@ CommandQueue& World::getCommandQueue()
 void World::loadTextures()
 {
 	mTextures.load(TextureID::mainIsland, "Media/Textures/Island.png");
+	mTextures.load(TextureID::smallIsland1, "Media/Textures/Mini-Island1.png");
+	mTextures.load(TextureID::smallIsland2, "Media/Textures/Mini-Island2.png");
 	mTextures.load(TextureID::BlueStick, "Media/Textures/BlueStick.png");
 	mTextures.load(TextureID::RedStick, "Media/Textures/RedStick.png");
 	mTextures.load(TextureID::Level, "Media/Textures/LevelMap.png");
@@ -111,34 +113,12 @@ void World::buildScene()
 
 	//Add Islands
 	std::unique_ptr<Island> mMainIsland(new Island(IslandID::mainIsland, mTextures));
-	mMainIsland->setPosition(mSpawnPosition + sf::Vector2f(100, 50));
-	mMainIsland->setScale(1.0f, 1.0f);
+	mMainIsland->setPosition(mSpawnPosition + sf::Vector2f(-30, 250));
+	mMainIsland->setScale(0.8f, 1.0f);
 	mSceneLayers[static_cast<int>(LayerID::Air)]->attachChild(std::move(mMainIsland));
 	
 }
 
-//void World::addIsland(IslandID type, float relX, float relY)
-//{
-//	SpawnPoint spawn(type, mSpawnPosition.x + relX, mSpawnPosition.y - relY);
-//	mIslandSpawnPoints.push_back(spawn);
-//}
-//
-//void World::spawnIslands()
-//{
-//	// Spawn all enemies entering the view area (including distance) this frame
-//	while (!mIslandSpawnPoints.empty())
-//	{
-//		SpawnPoint spawn = mIslandSpawnPoints.back();
-//
-//		std::unique_ptr<Island> Island(new Island(spawn.type, mTextures));
-//		Island->setPosition(spawn.x, spawn.y);
-//
-//		//mSceneLayers[static_cast<int>(LayerID::UpperAir)]->attachChild(std::move(Island));
-//
-//		// Island is spawned, remove from the list to spawn
-//		mIslandSpawnPoints.pop_back();
-//	}
-//}
 
 void World::adaptPlayerPosition()
 {
