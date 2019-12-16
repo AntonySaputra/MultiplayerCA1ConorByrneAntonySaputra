@@ -14,12 +14,20 @@ public:
 
 	void jump();
 
+	void punch();
+	void setPunchingStatus(bool punchStatus);
+	void getPunch();
+	bool isPunching();
+
+
 private:
 	virtual void drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const;
 	void checkIsJumping(sf::Time dt);
+	void checkIsPunched(sf::Time dt);
 	virtual void updateCurrent(sf::Time dt);
 
 private:
+	int mDamageMultiplayer;
 	StickmanID mType;
 	sf::Sprite mSprite;
 	sf::Time mTimeInAir;
@@ -30,5 +38,7 @@ private:
 	float mMaxVelocity;
 	bool mIsJumping;
 	bool mIsMarkedForRemoval;
+	bool mIsPunching;
+	bool mIsGetPunched;
 
 };

@@ -5,5 +5,6 @@ enum class ActionID
 	MoveRight,
 	Jump,
 	MoveDown,
+	Punch,
 	ActionCount
 };
