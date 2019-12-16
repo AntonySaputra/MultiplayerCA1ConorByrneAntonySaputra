@@ -225,8 +225,7 @@ void World::handleCollisions()
 		{
 
 			auto& player = static_cast<Stickman&>(*pair.second);
-			//sf::Vector2f position = mPlayerStickman->getPosition();
-			player.accelerate(0.f, 500.0f);
+			player.accelerate(0.f, -500.0f);
 			std::cout << "Player 1 colliding with island" << std::endl;
 		}	
 
@@ -236,8 +235,7 @@ void World::handleCollisions()
 
 
 			auto& player = static_cast<Stickman&>(*pair.second);
-			//sf::Vector2f position = mPlayerStickman2->getPosition();
-			player.accelerate(0.f, 500.0f);
+			player.accelerate(0.f, -500.0f);
 			std::cout << "Player 2 colliding with island" << std::endl;
 
 		}
