@@ -17,6 +17,7 @@ public:
 
 	void punch();
 	void setPunchingStatus(bool punchStatus);
+	bool isGetPunch();
 	void getPunch();
 	bool isPunching();
 

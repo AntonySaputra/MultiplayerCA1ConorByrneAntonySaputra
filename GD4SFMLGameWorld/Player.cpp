@@ -14,9 +14,10 @@ struct StickmanMover
 {
 	StickmanMover(float vx, float vy) : velocity(vx, vy) {}
 
-	void operator()(Stickman& aircraft, sf::Time) const
+	void operator()(Stickman& stickman, sf::Time) const
 	{
-		aircraft.accelerate(velocity);
+		if(!stickman.isGetPunch())
+			stickman.accelerate(velocity);
 	}
 	sf::Vector2f velocity;
 };

@@ -77,7 +77,8 @@ bool Stickman::isMarkedForRemoval() const
 
 void Stickman::jump()
 {
-	mIsJumping = true;
+	if(!mIsJumping)
+		mIsJumping = true;
 
 }
 
@@ -101,6 +102,11 @@ void Stickman::punch()
 void Stickman::setPunchingStatus(bool punchStatus)
 {
 	mIsPunching = punchStatus;
+}
+
+bool Stickman::isGetPunch()
+{
+	return mIsGetPunched;
 }
 
 void Stickman::getPunch()
