@@ -5,7 +5,8 @@
 #include "GameState.hpp"
 #include "PauseState.hpp"
 #include "SettingState.hpp"
-#include "GameOverState.hpp"
+#include "Player1WinState.hpp"
+#include "Player2WinState.hpp"
 
 const sf::Time Application::TimePerFrame = sf::seconds(1.f / 60.f);
 
@@ -23,11 +24,12 @@ Application::Application()
 	mWindow.setKeyRepeatEnabled(false);
 
 	mFonts.load(FontID::Main, "Media/Sansation.ttf");
-	mTextures.load(TextureID::TitleScreen, "Media/Textures/copy_page.png"); 
-	mTextures.load(TextureID::ButtonNormal, "Media/Textures/ButtonNormal.png");
-	mTextures.load(TextureID::ButtonSelected, "Media/Textures/ButtonSelected.png");
+	mTextures.load(TextureID::TitleScreen, "Media/Textures/Title.png"); 
+	mTextures.load(TextureID::ButtonNormal, "Media/Textures/Mini-Island1.png");
+	mTextures.load(TextureID::ButtonSelected, "Media/Textures/Mini-Island1-Selected.png");
 	mTextures.load(TextureID::ButtonPressed, "Media/Textures/ButtonPressed.png");
 	mTextures.load(TextureID::Player1Win, "Media/Textures/Player1Win.png");
+	mTextures.load(TextureID::Player2Win, "Media/Textures/Player2Win.png");
 	mStatisticText.setFont(mFonts.get(FontID::Main));
 	mStatisticText.setPosition(5.f, 5.f);
 	mStatisticText.setCharacterSize(20);
@@ -112,5 +114,6 @@ void Application::registerStates()
 	mStateStack.registerState<SettingState>(StateID::Settings);
 	mStateStack.registerState<GameState>(StateID::Game);
 	mStateStack.registerState<PauseState>(StateID::Pause);
-	mStateStack.registerState<GameOverState>(StateID::GameOver);
+	mStateStack.registerState<Player1WinState>(StateID::Player1Win);
+	mStateStack.registerState<Player2WinState>(StateID::Player2Win);
 }

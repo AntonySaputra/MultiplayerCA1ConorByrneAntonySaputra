@@ -3,10 +3,10 @@
 #include <SFML/Graphics/Sprite.hpp>
 #include <SFML/Graphics/Text.hpp>
 
-class GameOverState : public State
+class Player1WinState : public State
 {
 public:
-	GameOverState(StateStack& stack, Context context);
+	Player1WinState(StateStack& stack, Context context);
 
 	virtual void draw();
 	virtual bool update(sf::Time dt);

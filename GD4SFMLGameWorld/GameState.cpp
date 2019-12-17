@@ -18,11 +18,11 @@ bool GameState::update(sf::Time dt)
 	int check = mWorld.outOfBounds();
 	if (check == 2) {
 		requestStackPop();
-		requestStackPush(StateID::GameOver);
+		requestStackPush(StateID::Player1Win);
 	}
 	else if (check == 4) {
 		requestStackPop();
-		requestStackPush(StateID::GameOver);
+		requestStackPush(StateID::Player2Win);
 	}
 	CommandQueue& commands = mWorld.getCommandQueue();
 	mPlayer.handleRealtimeInput(commands);

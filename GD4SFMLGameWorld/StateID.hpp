@@ -7,5 +7,6 @@ enum class StateID
 	Game,
 	Pause,
 	Settings,
-	GameOver
+	Player1Win,
+	Player2Win
 };
