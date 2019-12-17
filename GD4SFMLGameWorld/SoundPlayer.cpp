@@ -21,6 +21,7 @@ SoundPlayer::SoundPlayer()
 	mSoundsBuffer.load(SoundEffectID::Jump, "Media/Sound/Jump.wav");
 	mSoundsBuffer.load(SoundEffectID::GetPunch, "Media/Sound/ouch.wav");
 	mSoundsBuffer.load(SoundEffectID::Punch, "Media/Sound/Punch.wav");
+	//mSoundsBuffer.load(SoundEffectID::AlliedGunfire, "Media/Sound/AlliedGunfire.wav");
 
 
 

@@ -142,10 +142,12 @@ void Stickman::setTimeInAir(sf::Time time)
 	mTimeInAir = time;
 }
 
-void Stickman::punchReset(sf::Time dt)
+void Stickman::punchReset(sf::Time dt , CommandQueue& commands)
 {
 	if (mIsPunching)
 	{
+		if(mPunchCountUp == sf::Time::Zero)
+			playerLocalSound(commands, SoundEffectID::Punch);
 		mPunchCountUp += dt;
 		if (mPunchCountUp >= mPunchInterval)
 		{
@@ -242,9 +244,13 @@ void Stickman::checkIsJumping(sf::Time dt, CommandQueue& commands)
 {
 	if (!mIsGetPunched)
 	{
+		
 		if (mIsJumping)
 		{
-			playerLocalSound(commands, SoundEffectID::Jump);
+			if (mTimeInAir == sf::Time::Zero)
+			{
+				playerLocalSound(commands, SoundEffectID::Jump);
+			}
 			//Jump impulse: jump very fast first
 			mTimeInAir += dt;
 			if (mTimeInAir < mJumpImpulseTime)
@@ -272,10 +278,12 @@ void Stickman::checkIsJumping(sf::Time dt, CommandQueue& commands)
 
 
 
-void Stickman::checkIsPunched(sf::Time dt)
+void Stickman::checkIsPunched(sf::Time dt, CommandQueue& commands)
 {
 	if (mIsGetPunched)
 	{
+		if (mPunchTime == sf::Time::Zero)
+			playerLocalSound(commands, SoundEffectID::GetPunch);
 		mPunchTime += dt;
 		if (mPunchTime < mPunchImpulseTime * mDamageMultiplier)
 		{
@@ -339,7 +347,7 @@ void Stickman::updateCurrent(sf::Time dt, CommandQueue& commands)
 
 
 	checkIsJumping(dt, commands);
-	checkIsPunched(dt);
-	punchReset(dt);
+	checkIsPunched(dt , commands);
+	punchReset(dt, commands);
 	Entity::updateCurrent(dt,commands);
 }

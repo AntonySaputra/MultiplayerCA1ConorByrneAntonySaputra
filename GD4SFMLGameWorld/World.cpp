@@ -1,4 +1,5 @@
 #include "World.hpp"
+#include "SoundNode.hpp"
 
 #include <iostream>
 
@@ -123,6 +124,8 @@ void World::buildScene()
 	
 	mSceneLayers[static_cast<int>(LayerID::Background)]->attachChild(std::move(backgroundSprite));
 
+	std::unique_ptr<SoundNode> soundNode(new SoundNode(mSounds));
+	mSceneGraph.attachChild(std::move(soundNode));
 
 
 	//Add players Stickman
