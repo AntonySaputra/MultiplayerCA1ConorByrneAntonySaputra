@@ -10,6 +10,7 @@
 #include "LayerID.hpp"
 #include "CommandQueue.hpp"
 #include "BloomEffect.hpp"
+#include "SoundPlayer.hpp"
 
 #include "SFML/System/NonCopyable.hpp"
 #include "SFML/Graphics/View.hpp"
@@ -27,11 +28,12 @@
 class World : private sf::NonCopyable
 {
 public:
-	explicit World(sf::RenderTarget& outputTarget);
+	explicit World(sf::RenderTarget& outputTarget , SoundPlayer& sounds);
 	void update(sf::Time dt);
 	void draw();
 	CommandQueue& getCommandQueue();
 	unsigned int outOfBounds();
+	void updateSounds();
 
 private:
 	void loadTextures();
@@ -58,6 +60,7 @@ private:
 	sf::RenderTexture mSceneTexture;
 	sf::View mCamera;
 	TextureHolder mTextures;
+	SoundPlayer& mSounds;
 
 	SceneNode mSceneGraph;
 	std::array<SceneNode*, static_cast<int>(LayerID::LayerCount)> mSceneLayers;

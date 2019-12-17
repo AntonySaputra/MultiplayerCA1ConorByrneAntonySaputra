@@ -28,12 +28,14 @@ public:
 	void setDirection(float direction);
 	float getDirection();
 
+	void playerLocalSound(CommandQueue& commands, SoundEffectID effect);
+
 private:
 	virtual void drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const;
-	void checkIsJumping(sf::Time dt);
+	void checkIsJumping(sf::Time dt , CommandQueue& commands);
 	void checkIsPunched(sf::Time dt);
 	void punchReset(sf::Time dt);
-	virtual void updateCurrent(sf::Time dt);
+	virtual void updateCurrent(sf::Time dt, CommandQueue& commands);
 
 private:
 	float mDamageMultiplier;

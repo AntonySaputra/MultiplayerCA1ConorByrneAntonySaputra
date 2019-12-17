@@ -1,5 +1,6 @@
 #include "Entity.hpp"
 
+
 Entity::Entity(bool isStatic)
 	: mGravity(500.0f), mIsStatic(isStatic)
 {
@@ -35,7 +36,7 @@ sf::Vector2f Entity::getVelocity() const
 	return mVelocity;
 }
 
-void Entity::updateCurrent(sf::Time dt)
+void Entity::updateCurrent(sf::Time dt, CommandQueue& commands)
 {
 	if (!mIsStatic) {
 		accelerate(0.f, mGravity);

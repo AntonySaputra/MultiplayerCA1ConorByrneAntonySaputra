@@ -1,6 +1,7 @@
 #pragma once
 #include "SFML/Graphics.hpp"
 #include "SceneNode.hpp"
+#include "CommandQueue.hpp"
 
 class Entity : public SceneNode
 {
@@ -14,7 +15,7 @@ public:
 	sf::Vector2f getVelocity() const;
 
 protected:
-	virtual void updateCurrent(sf::Time dt);
+	virtual void updateCurrent(sf::Time dt, CommandQueue& commands);
 
 private:
 	sf::Vector2f mVelocity;

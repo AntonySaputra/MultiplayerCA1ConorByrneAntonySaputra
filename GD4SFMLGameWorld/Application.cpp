@@ -14,9 +14,10 @@ Application::Application()
 	: mWindow(sf::VideoMode(1200, 720),"Stack States", sf::Style::Close),
 	mTextures(),
 	mFonts(),
+	mSoundPlayer(),
 	mPlayer(PlayerID::Player1),
 	mPlayer2(PlayerID::Player2),
-	mStateStack(State::Context(mWindow,mTextures,mFonts,mPlayer,mPlayer2)),
+	mStateStack(State::Context(mWindow,mTextures,mFonts,mPlayer,mPlayer2,mSoundPlayer)),
 	mStatisticText(),
 	mStatisticsUpdateTime(),
 	mStatisticsNumFrames(0)

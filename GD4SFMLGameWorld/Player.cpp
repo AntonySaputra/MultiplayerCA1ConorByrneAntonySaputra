@@ -122,7 +122,7 @@ bool Player::isRealtimeAction(ActionID action)
 	case ActionID::MoveLeft:
 	case ActionID::MoveRight:
 		//case ActionID::MoveUp:
-	case ActionID::MoveDown:
+
 		return true;
 
 	case ActionID::Jump:

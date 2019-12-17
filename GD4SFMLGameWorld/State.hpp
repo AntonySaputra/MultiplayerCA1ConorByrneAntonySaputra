@@ -1,6 +1,7 @@
 #pragma once
 #include "StateID.hpp"
 #include "ResourceIdentifiers.hpp"
+#include "SoundPlayer.hpp"
 
 #include <SFML/System/Time.hpp>
 #include <SFML/Window/Event.hpp>
@@ -21,13 +22,14 @@ public:
 	
 	struct Context
 	{
-		Context(sf::RenderWindow& window, TextureHolder& textures, FontHolder& fonts, Player& player, Player& player2);
+		Context(sf::RenderWindow& window, TextureHolder& textures, FontHolder& fonts, Player& player, Player& player2, SoundPlayer& sound);
 
 		sf::RenderWindow* window;
 		TextureHolder* textures;
 		FontHolder* fonts;
 		Player* player;
 		Player* player2;
+		SoundPlayer* sound;
 	};
 
 public:

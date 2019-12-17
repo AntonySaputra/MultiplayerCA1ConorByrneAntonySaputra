@@ -3,14 +3,15 @@
 #include "SFML/Graphics/RenderStates.hpp"
 
 
-GUI::Button::Button(const FontHolder& fonts, const TextureHolder& textures)
+GUI::Button::Button(State::Context context)
 	: mCallback()
-	, mNormalTexture(textures.get(TextureID::ButtonNormal))
-	, mSelectedTexture(textures.get(TextureID::ButtonSelected))
-	, mPressedTexture(textures.get(TextureID::ButtonPressed))
+	, mNormalTexture(context.textures->get(TextureID::ButtonNormal))
+	, mSelectedTexture(context.textures->get(TextureID::ButtonSelected))
+	, mPressedTexture(context.textures->get(TextureID::ButtonPressed))
 	, mSprite()
-	, mText("", fonts.get(FontID::Main), 16)
+	, mText("", context.fonts->get(FontID::Main), 16)
 	, mIsToggle(false)
+	, mSound(*context.sound)
 {
 	mSprite.setTexture(mNormalTexture);
 
@@ -54,7 +55,7 @@ void GUI::Button::deselect()
 void GUI::Button::activate()
 {
 	Component::activate();
-
+	mSound.play(SoundEffectID::Button);
 	//if we toggle then we should show the button as pressed/toggled
 	if (mIsToggle)
 	{

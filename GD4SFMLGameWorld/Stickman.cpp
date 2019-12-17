@@ -4,6 +4,8 @@
 #include "DataTable.hpp"
 #include "TextureID.hpp"
 #include "Utility.hpp"
+#include "CommandQueue.hpp"
+#include "SoundNode.hpp"
 
 #include <iostream>	
 
@@ -188,6 +190,21 @@ float Stickman::getDirection()
 	return mFacingDirection;
 }
 
+void Stickman::playerLocalSound(CommandQueue& commands, SoundEffectID effect)
+{
+	sf::Vector2f worldPosition = getWorldPosition();
+
+	Command command;
+	command.category = static_cast<int>(CategoryID::SoundEffect);
+	command.action = derivedAction<SoundNode>(
+		[effect, worldPosition](SoundNode& node, sf::Time)
+		{
+			node.playSound(effect, worldPosition);
+		});
+
+	commands.push(command);
+}
+
 void Stickman::setPunchDirection(float punchDirection)
 {
 	mPunchDirectionMultiplier = punchDirection;
@@ -221,12 +238,13 @@ void Stickman::drawCurrent(sf::RenderTarget& target, sf::RenderStates states) co
 // Logic: when the stickman is jumping, the mTimeInAir will start counting up
 // the jump will consist of 3 part, Impulse (jumping fast), Hanging (slowly goes to the peak), then falling down
 // each phase will start if timeInAir is reach the timing condition (if less than impulse time, do impulse, after that do hang, after that do fall)
-void Stickman::checkIsJumping(sf::Time dt)
+void Stickman::checkIsJumping(sf::Time dt, CommandQueue& commands)
 {
 	if (!mIsGetPunched)
 	{
 		if (mIsJumping)
 		{
+			playerLocalSound(commands, SoundEffectID::Jump);
 			//Jump impulse: jump very fast first
 			mTimeInAir += dt;
 			if (mTimeInAir < mJumpImpulseTime)
@@ -281,7 +299,7 @@ void Stickman::checkIsPunched(sf::Time dt)
 	}
 }
 
-void Stickman::updateCurrent(sf::Time dt)
+void Stickman::updateCurrent(sf::Time dt, CommandQueue& commands)
 {
 	if (mIsGetPunched && mPunchDirectionMultiplier > 0)
 	{
@@ -320,8 +338,8 @@ void Stickman::updateCurrent(sf::Time dt)
 	}
 
 
-	checkIsJumping(dt);
+	checkIsJumping(dt, commands);
 	checkIsPunched(dt);
 	punchReset(dt);
-	Entity::updateCurrent(dt);
+	Entity::updateCurrent(dt,commands);
 }

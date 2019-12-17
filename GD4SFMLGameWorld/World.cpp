@@ -2,11 +2,12 @@
 
 #include <iostream>
 
-World::World(sf::RenderTarget& outputTarget)
+World::World(sf::RenderTarget& outputTarget, SoundPlayer& sounds)
 	: mTarget(outputTarget)
 	, mSceneTexture()
 	, mCamera(outputTarget.getDefaultView())
 	, mTextures()
+	, mSounds(sounds)
 	, mSceneGraph()
 	, mSceneLayers()
 	, mWorldBounds(0.f, 0.f, mCamera.getSize().x, mCamera.getSize().y)
@@ -42,8 +43,10 @@ void World::update(sf::Time dt)
 	handleCollisions();
 
 	//Regular update, adapt position if outisde view	
-	mSceneGraph.update(dt);
+	mSceneGraph.update(dt, mCommandQueue);
 	outOfBounds();
+
+	updateSounds();
 }
 
 void World::draw()
@@ -77,7 +80,7 @@ void World::loadTextures()
 	mTextures.load(TextureID::smallIsland2, "Media/Textures/Mini-Island2.png");
 	mTextures.load(TextureID::BlueStick, "Media/Textures/BlueStick.png");
 	mTextures.load(TextureID::RedStick, "Media/Textures/RedStick.png");
-	mTextures.load(TextureID::Level, "Media/Textures/LevelMap.png");
+	mTextures.load(TextureID::Level, "Media/Textures/Level.png");
 	mTextures.load(TextureID::RunningRight, "Media/Textures/RunningRight.png");
 	mTextures.load(TextureID::RunningLeft, "Media/Textures/RunningLeft.png");
 	mTextures.load(TextureID::Jump, "Media/Textures/Jump.png");
@@ -144,6 +147,13 @@ void World::buildScene()
 	
 }
 
+void World::updateSounds()
+{
+	// set the listener to the player position
+	mSounds.setListenPosition(mPlayerStickman->getWorldPosition());
+	//Remove unused sounds
+	mSounds.removeStoppedSounds();
+}
 
 unsigned int World::outOfBounds()
 {

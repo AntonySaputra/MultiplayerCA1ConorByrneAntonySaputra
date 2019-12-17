@@ -37,5 +37,6 @@ private:
 	sf::Text mStatisticText;
 	sf::Time mStatisticsUpdateTime;
 	std::size_t mStatisticsNumFrames;
+	SoundPlayer mSoundPlayer;
 
 };

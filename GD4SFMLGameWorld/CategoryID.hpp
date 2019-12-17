@@ -11,6 +11,7 @@ enum class CategoryID
 	mainIsland = 1 << 4,
 	Mini_Island1 = 1 << 5,
 	Mini_Island2 = 1 << 6,
+	SoundEffect = 1 << 7,
 
 	Island = mainIsland | Mini_Island1 | Mini_Island2,
 };

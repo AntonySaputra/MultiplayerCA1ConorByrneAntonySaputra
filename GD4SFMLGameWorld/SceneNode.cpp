@@ -30,10 +30,10 @@ SceneNode::Ptr SceneNode::detachChild(const SceneNode& node)
 	return result;
 }
 
-void SceneNode::update(sf::Time dt)
+void SceneNode::update(sf::Time dt, CommandQueue& commands)
 {
-	updateCurrent(dt);
-	updateChildren(dt);
+	updateCurrent(dt, commands);
+	updateChildren(dt, commands);
 }
 
 sf::Vector2f SceneNode::getWorldPosition() const
@@ -104,17 +104,16 @@ bool SceneNode::isMarkedForRemoval() const
 	return isDestroyed();
 }
 
-void SceneNode::updateCurrent(sf::Time dt)
+void SceneNode::updateCurrent(sf::Time, CommandQueue&)
 {
-	//Do nothing by default
+	// Do nothing by default
 }
 
-void SceneNode::updateChildren(sf::Time dt)
+
+void SceneNode::updateChildren(sf::Time dt, CommandQueue& commands)
 {
 	for (const Ptr& child : mChildren)
-	{
-		child->update(dt);
-	}
+		child->update(dt, commands);
 }
 
 void SceneNode::draw(sf::RenderTarget& target, sf::RenderStates states) const
@@ -126,7 +125,7 @@ void SceneNode::draw(sf::RenderTarget& target, sf::RenderStates states) const
 	drawChildren(target, states);
 
 	// Draw bounding rectangle - disabled by default
-	drawBoundingRect(target, states);
+	//drawBoundingRect(target, states);
 }
 
 void SceneNode::drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const

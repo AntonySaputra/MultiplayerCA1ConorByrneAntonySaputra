@@ -4,6 +4,7 @@
 #include "SFML/Graphics/Transformable.hpp"
 #include "SFML/Graphics/Drawable.hpp"
 #include "Command.hpp"
+#include "CommandQueue.hpp"
 
 #include <vector>
 #include <memory>
@@ -20,7 +21,7 @@ public:
 	void attachChild(Ptr child);
 	Ptr detachChild(const SceneNode& node);
 
-	void update(sf::Time dt);
+	void update(sf::Time dt, CommandQueue& commands);
 
 	sf::Vector2f getWorldPosition() const;
 	sf::Transform getWorldTransform() const;
@@ -36,8 +37,8 @@ public:
 	virtual bool isMarkedForRemoval() const;
 
 private:
-	virtual void updateCurrent(sf::Time dt);
-	void updateChildren(sf::Time dt);
+	virtual void updateCurrent(sf::Time dt, CommandQueue& commands);
+	void updateChildren(sf::Time dt, CommandQueue& commands);
 
 	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 	virtual void drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const;

@@ -10,12 +10,12 @@ SettingState::SettingState(StateStack& stack, Context context)
 	//build key bindings and button labels
 	addButtonLabel(ActionID::MoveLeft, 150.f, "Move Left", context);
 	addButtonLabel(ActionID::MoveRight, 200.f, "Move Right", context);
-	addButtonLabel(ActionID::Jump, 250.f, "Move Up", context);
-	addButtonLabel(ActionID::MoveDown, 300.f, "Move Down", context);
+	addButtonLabel(ActionID::Jump, 250.f, "Jump", context);
+	addButtonLabel(ActionID::Punch, 300.f, "Punch", context);
 
 	updateLabels();
 
-	auto backButton = std::make_shared<GUI::Button>(*context.fonts, *context.textures);
+	auto backButton = std::make_shared<GUI::Button>(context);
 	backButton->setPosition(80, 375);
 	backButton->setText("Back");
 	backButton->setCallback(std::bind(&SettingState::requestStackPop, this));
@@ -80,7 +80,7 @@ void SettingState::updateLabels()
 
 void SettingState::addButtonLabel(ActionID action, float y, const std::string& text, Context context)
 {
-	mBindingButtons[static_cast<int>(action)] = std::make_shared<GUI::Button>(*context.fonts, *context.textures);
+	mBindingButtons[static_cast<int>(action)] = std::make_shared<GUI::Button>(context);
 	mBindingButtons[static_cast<int>(action)]->setPosition(80.f, y);
 	mBindingButtons[static_cast<int>(action)]->setText(text);
 	mBindingButtons[static_cast<int>(action)]->setToggle(true);
