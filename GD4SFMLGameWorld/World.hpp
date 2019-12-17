@@ -30,14 +30,13 @@ public:
 	void update(sf::Time dt);
 	void draw();
 	CommandQueue& getCommandQueue();
+	unsigned int outOfBounds();
 
 private:
 	void loadTextures();
 	void buildScene();
-	void adaptPlayerPosition();
 	void adaptPlayerVelocity();
 	void handleCollisions();
-	void spawnIslands();
 
 	struct SpawnPoint
 	{

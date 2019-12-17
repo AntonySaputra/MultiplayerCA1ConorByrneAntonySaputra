@@ -132,3 +132,13 @@ bool Player::isRealtimeAction(ActionID action)
 		return false;
 	}
 }
+
+void Player::setFightStatus(FightStatus status)
+{
+	mCurrentFightStatus = status;
+}
+
+FightStatus Player::getFightStatus() const
+{
+	return FightStatus();
+}

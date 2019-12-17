@@ -41,7 +41,7 @@ void World::update(sf::Time dt)
 
 	//Regular update, adapt position if outisde view	
 	mSceneGraph.update(dt);
-	adaptPlayerPosition();
+	outOfBounds();
 }
 
 void World::draw()
@@ -120,24 +120,34 @@ void World::buildScene()
 }
 
 
-void World::adaptPlayerPosition()
+unsigned int World::outOfBounds()
 {
 	//Keep the player's position inside the screen bounds
 	sf::FloatRect viewBounds(mCamera.getCenter() - mCamera.getSize() / 2.f, mCamera.getSize());
 	const float borderDistance = 40.f;
 
 	sf::Vector2f position = mPlayerStickman->getPosition();
-	position.x = std::max(position.x, viewBounds.left + borderDistance);
-	position.x = std::min(position.x, viewBounds.left + viewBounds.width - borderDistance);
-	position.y = std::max(position.y, viewBounds.top + borderDistance);
-	position.y = std::min(position.y, viewBounds.top + viewBounds.height - borderDistance);
-	mPlayerStickman->setFightStatus(FightStatus::Player1Win);
-
+	sf::Vector2f position1 = mPlayerStickman->getPosition();
 	sf::Vector2f position2 = mPlayerStickman2->getPosition();
-	position2.x = std::max(position2.x, viewBounds.left + borderDistance);
-	position2.x = std::min(position2.x, viewBounds.left + viewBounds.width - borderDistance);
-	position2.y = std::max(position2.y, viewBounds.top + borderDistance);
-	position2.y = std::min(position2.y, viewBounds.top + viewBounds.height - borderDistance);
+	sf::Vector2f position3 = mPlayerStickman2->getPosition();
+
+
+	if (position1.x > std::min(position.x, viewBounds.left + viewBounds.width - borderDistance) ||
+		position1.x < std::max(position.x, viewBounds.left + borderDistance) ||
+		position1.y > std::min(position.y, viewBounds.top + viewBounds.height - borderDistance) ||
+		position1.y < std::max(position.y, viewBounds.top + borderDistance)) {
+		std::cout << static_cast<int>(CategoryID::PlayerStickman2) << std::endl;
+		return static_cast<int>(CategoryID::PlayerStickman2); //returns winning stickman
+	}
+
+	if (position3.x > std::min(position2.x, viewBounds.left + viewBounds.width - borderDistance) || 
+		position3.x < std::max(position2.x, viewBounds.left + borderDistance) || 
+		position3.y > std::min(position2.y, viewBounds.top + viewBounds.height - borderDistance) || 
+		position3.y < std::max(position2.y, viewBounds.top + borderDistance))
+	{
+		std::cout << static_cast<int>(CategoryID::PlayerStickman1) << std::endl;
+		return static_cast<int>(CategoryID::PlayerStickman1);
+	}
 }
 
 void World::adaptPlayerVelocity()

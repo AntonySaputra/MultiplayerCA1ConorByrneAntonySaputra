@@ -151,15 +151,6 @@ void Stickman::setPunchDirection(float punchDirection)
 	mPunchDirectionMultiplier = punchDirection;
 }
 
-void Stickman::setFightStatus(FightStatus status)
-{
-	mCurrentFightStatus = status;
-}
-
-FightStatus Stickman::getFightStatus() const
-{
-	return FightStatus();
-}
 
 
 void Stickman::drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const

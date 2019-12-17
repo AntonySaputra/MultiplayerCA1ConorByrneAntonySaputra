@@ -2,7 +2,6 @@
 #include "Entity.hpp"
 #include "StickmanID.hpp"
 #include "ResourceIdentifiers.hpp"
-#include "FightStatus.hpp"
 #include "CommandQueue.hpp"
 #include "Animation.hpp"
 
@@ -23,9 +22,6 @@ public:
 	bool isGetPunch();
 	void getPunch();
 	void setPunchDirection(float punchDirection);
-
-	void setFightStatus(FightStatus status);
-	FightStatus getFightStatus() const;
 
 	//might be useful for animation - keep it for now
 	bool isPunching();
@@ -61,7 +57,6 @@ private:
 	float mPunchImpulseVel;
 	float mPunchHangVel;
 	float mPunchDirectionMultiplier;
-	FightStatus mCurrentFightStatus;
 
 	//might be useful for animation - keep it for now
 	float mFacingDirection;

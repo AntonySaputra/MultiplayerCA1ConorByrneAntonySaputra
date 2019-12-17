@@ -12,7 +12,16 @@ void GameState::draw()
 
 bool GameState::update(sf::Time dt)
 {
+	
 	mWorld.update(dt);
+
+	int check = mWorld.outOfBounds();
+	if (check = 2) {
+		//requestStackPush(StateID::Title);
+	}
+	else if (check = 4) {
+		mPlayer.setFightStatus(FightStatus::Player2Win);
+	}
 	CommandQueue& commands = mWorld.getCommandQueue();
 	mPlayer.handleRealtimeInput(commands);
 	mPlayer2.handleRealtimeInput(commands);
