@@ -9,6 +9,7 @@
 #include "IslandID.hpp"
 #include "LayerID.hpp"
 #include "CommandQueue.hpp"
+#include "BloomEffect.hpp"
 
 #include "SFML/System/NonCopyable.hpp"
 #include "SFML/Graphics/View.hpp"
@@ -26,7 +27,7 @@
 class World : private sf::NonCopyable
 {
 public:
-	explicit World(sf::RenderWindow& window);
+	explicit World(sf::RenderTarget& outputTarget);
 	void update(sf::Time dt);
 	void draw();
 	CommandQueue& getCommandQueue();
@@ -53,7 +54,8 @@ private:
 	};
 
 private:
-	sf::RenderWindow& mWindow;
+	sf::RenderTarget& mTarget;
+	sf::RenderTexture mSceneTexture;
 	sf::View mCamera;
 	TextureHolder mTextures;
 
@@ -61,7 +63,7 @@ private:
 	std::array<SceneNode*, static_cast<int>(LayerID::LayerCount)> mSceneLayers;
 	CommandQueue mCommandQueue;
 
-	void addIsland(IslandID type, float relX, float relY);
+	//void addIsland(IslandID type, float relX, float relY);
 
 	sf::FloatRect mWorldBounds;
 	sf::Vector2f mSpawnPosition;
@@ -70,4 +72,6 @@ private:
 	Stickman* mPlayerStickman;
 	Stickman* mPlayerStickman2;
 	std::vector<SpawnPoint>	mIslandSpawnPoints;
+
+	BloomEffect	mBloomEffect;
 };

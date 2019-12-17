@@ -2,9 +2,10 @@
 
 #include <iostream>
 
-World::World(sf::RenderWindow& window) 
-	: mWindow(window)
-	, mCamera(window.getDefaultView())
+World::World(sf::RenderTarget& outputTarget)
+	: mTarget(outputTarget)
+	, mSceneTexture()
+	, mCamera(outputTarget.getDefaultView())
 	, mTextures()
 	, mSceneGraph()
 	, mSceneLayers()
@@ -14,6 +15,7 @@ World::World(sf::RenderWindow& window)
 	, mPlayerStickman(nullptr)
 	, mPlayerStickman2(nullptr)
 {
+	mSceneTexture.create(mTarget.getSize().x, mTarget.getSize().y);
 	loadTextures();
 	buildScene();
 
@@ -46,8 +48,20 @@ void World::update(sf::Time dt)
 
 void World::draw()
 {
-	mWindow.setView(mCamera);
-	mWindow.draw(mSceneGraph);
+	if (PostEffect::isSupported())
+	{
+		mSceneTexture.clear();
+		mSceneTexture.setView(mCamera);
+		mSceneTexture.draw(mSceneGraph);
+		mSceneTexture.display();
+		mBloomEffect.apply(mSceneTexture, mTarget);
+	}
+	else
+	{
+		mTarget.setView(mCamera);
+		mTarget.draw(mSceneGraph);
+	}
+	
 }
 
 CommandQueue& World::getCommandQueue()
@@ -98,8 +112,6 @@ void World::buildScene()
 	
 	sf::Vector2u mTextureSize = texture.getSize();
 
-	float ScaleX = mWindow.getSize().x / mTextureSize.x;
-	float ScaleY = mWindow.getSize().y / mTextureSize.y;
 
 	//Add the background sprite to the scene
 	std::unique_ptr<SpriteNode> backgroundSprite(new SpriteNode(texture, textureRect));
