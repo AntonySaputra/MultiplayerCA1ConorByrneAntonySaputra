@@ -62,6 +62,11 @@ private:
 	float mFacingDirection;
 
 	Animation mRunningRight;
-	//bool isRunningRight;
+	Animation mRunningLeft;
+	Animation mJump;
+	Animation mPunchRight;
+	Animation mPunchLeft;
+	Animation mGetPunchRight;
+	Animation mGetPunchLeft;
 
 };

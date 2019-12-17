@@ -57,6 +57,7 @@ CommandQueue& World::getCommandQueue()
 
 void World::loadTextures()
 {
+
 	mTextures.load(TextureID::mainIsland, "Media/Textures/Island.png");
 	mTextures.load(TextureID::smallIsland1, "Media/Textures/Mini-Island1.png");
 	mTextures.load(TextureID::smallIsland2, "Media/Textures/Mini-Island2.png");
@@ -64,6 +65,20 @@ void World::loadTextures()
 	mTextures.load(TextureID::RedStick, "Media/Textures/RedStick.png");
 	mTextures.load(TextureID::Level, "Media/Textures/LevelMap.png");
 	mTextures.load(TextureID::RunningRight, "Media/Textures/RunningRight.png");
+	mTextures.load(TextureID::RunningLeft, "Media/Textures/RunningLeft.png");
+	mTextures.load(TextureID::Jump, "Media/Textures/Jump.png");
+	mTextures.load(TextureID::PunchRight, "Media/Textures/Punch.png");
+	mTextures.load(TextureID::PunchLeft, "Media/Textures/PunchLeft.png");
+	mTextures.load(TextureID::GetPunchLeft, "Media/Textures/GetPunchLeft.png");
+	mTextures.load(TextureID::GetPunchRight, "Media/Textures/GetPunchRight.png");
+	mTextures.load(TextureID::RedRunningRight, "Media/Textures/RedRunningRight.png");
+	mTextures.load(TextureID::RedRunningLeft, "Media/Textures/RedRunningLeft.png");
+	mTextures.load(TextureID::RedJump, "Media/Textures/RedJump.png");
+	mTextures.load(TextureID::RedPunchRight, "Media/Textures/RedPunch.png");
+	mTextures.load(TextureID::RedPunchLeft, "Media/Textures/RedPunchLeft.png");
+	mTextures.load(TextureID::RedGetPunchLeft, "Media/Textures/RedGetPunchLeft.png");
+	mTextures.load(TextureID::RedGetPunchRight, "Media/Textures/RedGetPunchRight.png");
+
 }
 
 void World::buildScene()
@@ -106,8 +121,6 @@ void World::buildScene()
 	std::unique_ptr<Stickman> player2(new Stickman(StickmanID::RedStickman, mTextures));
 	mPlayerStickman2 = player2.get();
 	mPlayerStickman2->setPosition(mSpawnPosition + sf::Vector2f(100, 0));
-	mPlayerStickman2->setScale(0.2f, 0.2f);
-	//mPlayerAircraft->setVelocity(100.f, mScrollSpeed);
 	mSceneLayers[static_cast<int>(LayerID::Air)]->attachChild(std::move(player2));
 
 
@@ -211,14 +224,14 @@ void World::handleCollisions()
 					std::cout << "player1 punching" << std::endl;
 					player2.setPunchDirection(+1.0f);
 					player2.getPunch();
-					player1.setPunchingStatus(false);
+					
 				}
 				else if (player1.getPosition().x > player2.getPosition().x )
 				{
 					std::cout << "player1 punching" << std::endl;
 					player2.setPunchDirection(-1.0f);
 					player2.getPunch();
-					player1.setPunchingStatus(false);
+					
 				}
 			}
 			else if (!player1.isPunching() && player2.isPunching())
@@ -228,14 +241,14 @@ void World::handleCollisions()
 					std::cout << "player2 punching" << std::endl;
 					player1.setPunchDirection(+1.0f);
 					player1.getPunch();
-					player2.setPunchingStatus(false);
+					
 				}
 				else if (player2.getPosition().x > player1.getPosition().x)
 				{
 					std::cout << "player2 punching" << std::endl;
 					player1.setPunchDirection(-1.0f);
 					player1.getPunch();
-					player2.setPunchingStatus(false);
+					
 				}
 			}
 			else if (player1.isPunching() && player2.isPunching())
@@ -247,8 +260,7 @@ void World::handleCollisions()
 					player2.setPunchDirection(+1.0f);
 					player1.getPunch();
 					player2.getPunch();
-					player1.setPunchingStatus(false);
-					player2.setPunchingStatus(false);
+					
 				}
 			}
 		}

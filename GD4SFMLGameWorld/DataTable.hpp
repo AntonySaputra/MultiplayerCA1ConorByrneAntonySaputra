@@ -32,6 +32,13 @@ struct StickmanData
 	float damageMultiplier;
 	float speed;
 	TextureID texture;
+	TextureID runRight;
+	TextureID runLeft;
+	TextureID jump;
+	TextureID punchRight;
+	TextureID punchLeft;
+	TextureID getPunchRight;
+	TextureID getPunchLeft;
 	sf::Time punchInterval;
 	sf::Time maxAirTime;
 
