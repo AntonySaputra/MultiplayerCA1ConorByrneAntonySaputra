@@ -26,6 +26,7 @@ Application::Application()
 	mTextures.load(TextureID::ButtonNormal, "Media/Textures/ButtonNormal.png");
 	mTextures.load(TextureID::ButtonSelected, "Media/Textures/ButtonSelected.png");
 	mTextures.load(TextureID::ButtonPressed, "Media/Textures/ButtonPressed.png");
+	mTextures.load(TextureID::Player1Win, "Media/Textures/Player1Win.png");
 	mStatisticText.setFont(mFonts.get(FontID::Main));
 	mStatisticText.setPosition(5.f, 5.f);
 	mStatisticText.setCharacterSize(20);

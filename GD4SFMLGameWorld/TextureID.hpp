@@ -12,5 +12,6 @@ enum class TextureID
 	ButtonNormal,
 	ButtonSelected,
 	ButtonPressed,
-	RunningRight
+	RunningRight,
+	Player1Win
 };

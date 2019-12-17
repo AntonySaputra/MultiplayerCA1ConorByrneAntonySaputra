@@ -19,6 +19,7 @@ public:
 
 
 private:
+	sf::Sprite			mBackgroundSprite;
 	sf::Text			mGameOverText;
 	sf::Time			mElapsedTime;
 };

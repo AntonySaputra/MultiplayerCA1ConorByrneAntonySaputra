@@ -114,6 +114,7 @@ sf::Keyboard::Key Player::getAssignedKey(ActionID action) const
 	return sf::Keyboard::Unknown;
 }
 
+
 bool Player::isRealtimeAction(ActionID action)
 {
 	switch (action)

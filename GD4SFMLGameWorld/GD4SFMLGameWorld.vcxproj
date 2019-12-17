@@ -137,6 +137,8 @@
   <ItemGroup>
     <ClInclude Include="ActionID.hpp" />
     <ClInclude Include="Animation.hpp" />
+    <ClInclude Include="FightStatus.hpp" />
+    <ClInclude Include="GameOverState.hpp" />
     <ClInclude Include="Island.hpp" />
     <ClInclude Include="IslandID.hpp" />
     <ClInclude Include="PlayerID.hpp" />
@@ -186,6 +188,7 @@
     <ClCompile Include="DataTable.cpp" />
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="GameOverState.cpp" />
     <ClCompile Include="GameState.cpp" />
     <ClCompile Include="Island.cpp" />
     <ClCompile Include="Label.cpp" />

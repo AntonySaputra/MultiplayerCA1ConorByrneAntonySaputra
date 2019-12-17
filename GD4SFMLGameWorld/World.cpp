@@ -127,19 +127,17 @@ void World::adaptPlayerPosition()
 	const float borderDistance = 40.f;
 
 	sf::Vector2f position = mPlayerStickman->getPosition();
-	
 	position.x = std::max(position.x, viewBounds.left + borderDistance);
 	position.x = std::min(position.x, viewBounds.left + viewBounds.width - borderDistance);
 	position.y = std::max(position.y, viewBounds.top + borderDistance);
 	position.y = std::min(position.y, viewBounds.top + viewBounds.height - borderDistance);
-	std::cout << "Player1 Dead" << std::endl;
+	mPlayerStickman->setFightStatus(FightStatus::Player1Win);
 
 	sf::Vector2f position2 = mPlayerStickman2->getPosition();
 	position2.x = std::max(position2.x, viewBounds.left + borderDistance);
 	position2.x = std::min(position2.x, viewBounds.left + viewBounds.width - borderDistance);
 	position2.y = std::max(position2.y, viewBounds.top + borderDistance);
 	position2.y = std::min(position2.y, viewBounds.top + viewBounds.height - borderDistance);
-	std::cout << "Player 2 Dead" << std::endl;
 }
 
 void World::adaptPlayerVelocity()

@@ -1,6 +1,6 @@
 #include "GameOverState.hpp"
 #include "Utility.hpp"
-#include "Player.hpp"
+#include "Stickman.hpp"
 #include "ResourceHolder.hpp"
 
 #include <SFML/Graphics/RectangleShape.hpp>
@@ -17,10 +17,10 @@ GameOverState::GameOverState(StateStack& stack, Context context)
 	sf::Vector2f windowSize(context.window->getSize());
 
 	mGameOverText.setFont(font);
-	if (context.player->getMissionStatus() == MissionStatusID::MissionFailure)
-		mGameOverText.setString("Mission failed!");
-	else
-		mGameOverText.setString("Mission successful!");
+	//if (context.player->getFightStatus() == FightStatus::Player1Win)
+		//mBackgroundSprite.setTexture(context.textures->get(TextureID::Player1Win)); //Sets the background image
+	//else
+		//mGameOverText.setString("Mission successful!");
 
 	mGameOverText.setCharacterSize(70);
 	centreOrigin(mGameOverText);
