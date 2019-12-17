@@ -38,5 +38,6 @@ private:
 	sf::Time mStatisticsUpdateTime;
 	std::size_t mStatisticsNumFrames;
 	SoundPlayer mSoundPlayer;
+	MusicPlayer mMusic;
 
 };

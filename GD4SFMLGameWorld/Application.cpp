@@ -15,9 +15,10 @@ Application::Application()
 	mTextures(),
 	mFonts(),
 	mSoundPlayer(),
+	mMusic(),
 	mPlayer(PlayerID::Player1),
 	mPlayer2(PlayerID::Player2),
-	mStateStack(State::Context(mWindow,mTextures,mFonts,mPlayer,mPlayer2,mSoundPlayer)),
+	mStateStack(State::Context(mWindow,mTextures,mFonts,mPlayer,mPlayer2,mSoundPlayer, mMusic)),
 	mStatisticText(),
 	mStatisticsUpdateTime(),
 	mStatisticsNumFrames(0)

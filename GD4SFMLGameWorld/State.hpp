@@ -2,6 +2,7 @@
 #include "StateID.hpp"
 #include "ResourceIdentifiers.hpp"
 #include "SoundPlayer.hpp"
+#include "MusicPlayer.hpp"
 
 #include <SFML/System/Time.hpp>
 #include <SFML/Window/Event.hpp>
@@ -22,7 +23,7 @@ public:
 	
 	struct Context
 	{
-		Context(sf::RenderWindow& window, TextureHolder& textures, FontHolder& fonts, Player& player, Player& player2, SoundPlayer& sound);
+		Context(sf::RenderWindow& window, TextureHolder& textures, FontHolder& fonts, Player& player, Player& player2, SoundPlayer& sound, MusicPlayer& music);
 
 		sf::RenderWindow* window;
 		TextureHolder* textures;
@@ -30,6 +31,7 @@ public:
 		Player* player;
 		Player* player2;
 		SoundPlayer* sound;
+		MusicPlayer* music;
 	};
 
 public:

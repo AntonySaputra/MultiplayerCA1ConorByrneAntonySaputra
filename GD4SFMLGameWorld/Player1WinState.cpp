@@ -8,6 +8,7 @@
 Player1WinState::Player1WinState(StateStack& stack, Context context) : State(stack, context), mText(), mShowText(true), mTextEffectTime(sf::Time::Zero)
 {
 	mBackgroundSprite.setTexture(context.textures->get(TextureID::Player1Win)); //Sets the background image
+	context.music->stop();
 }
 
 void Player1WinState::draw()

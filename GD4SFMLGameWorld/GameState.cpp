@@ -2,7 +2,7 @@
 
 GameState::GameState(StateStack& stack, Context context) : State(stack,context),mWorld(*context.window, *context.sound), mPlayer(*context.player), mPlayer2(*context.player2)
 {
-
+	context.music->play(MusicID::BattleTheme);
 }
 
 void GameState::draw()
@@ -17,6 +17,7 @@ bool GameState::update(sf::Time dt)
 
 	int check = mWorld.outOfBounds();
 	if (check == 2) {
+		
 		requestStackPop();
 		requestStackPush(StateID::Player1Win);
 	}
