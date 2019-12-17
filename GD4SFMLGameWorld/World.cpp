@@ -292,17 +292,28 @@ void World::handleCollisions()
 
 		else if (matchesCategories(pair, CategoryID::mainIsland, CategoryID::PlayerStickman1))
 		{
+			
+			auto& island = static_cast<Island&>(*pair.first);
 			auto& player = static_cast<Stickman&>(*pair.second);
-			player.accelerate(0.f, -500.0f);
-			player.setTimeInAir(sf::Time::Zero);
+
+			if (player.getPosition().y < island.getBoundingRect().top)
+			{
+				player.accelerate(0.f, -500.0f);
+				player.setTimeInAir(sf::Time::Zero);
+			}
+			
 			//std::cout << "Player 1 colliding with island" << std::endl;
 		}
 
 		else if (matchesCategories(pair, CategoryID::mainIsland, CategoryID::PlayerStickman2))
 		{
+			auto& island = static_cast<Island&>(*pair.first);
 			auto& player = static_cast<Stickman&>(*pair.second);
-			player.accelerate(0.f, -500.0f);
-			player.setTimeInAir(sf::Time::Zero);
+			if (player.getPosition().y < island.getBoundingRect().top)
+			{
+				player.accelerate(0.f, -500.0f);
+				player.setTimeInAir(sf::Time::Zero);
+			}
 
 			//std::cout << "Player 2 colliding with island" << std::endl;
 
