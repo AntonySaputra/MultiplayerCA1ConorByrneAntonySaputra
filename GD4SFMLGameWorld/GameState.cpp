@@ -1,3 +1,5 @@
+//Antony Saputra D00197615
+
 #include "GameState.hpp"
 
 GameState::GameState(StateStack& stack, Context context) : State(stack,context),mWorld(*context.window, *context.sound), mPlayer(*context.player), mPlayer2(*context.player2)

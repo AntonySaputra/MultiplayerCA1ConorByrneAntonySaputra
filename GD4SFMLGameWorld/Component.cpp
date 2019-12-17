@@ -1,3 +1,5 @@
+//Antony Saputra D00197615
+
 #include "Component.hpp"
 
 GUI::Component::Component() : mIsSelected(false),mIsActive(false)
