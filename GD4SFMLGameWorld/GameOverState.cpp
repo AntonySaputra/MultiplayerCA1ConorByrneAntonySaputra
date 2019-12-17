@@ -1,59 +1,32 @@
 #include "GameOverState.hpp"
-#include "Utility.hpp"
-#include "Stickman.hpp"
 #include "ResourceHolder.hpp"
 
-#include <SFML/Graphics/RectangleShape.hpp>
-#include <SFML/Graphics/RenderWindow.hpp>
-#include <SFML/Graphics/View.hpp>
+#include "SFML/Graphics/RenderWindow.hpp"
+#include "Utility.hpp"
 
 
-GameOverState::GameOverState(StateStack& stack, Context context)
-	: State(stack, context)
-	, mGameOverText()
-	, mElapsedTime(sf::Time::Zero)
+GameOverState::GameOverState(StateStack& stack, Context context) : State(stack, context), mText(), mShowText(true), mTextEffectTime(sf::Time::Zero)
 {
-	sf::Font& font = context.fonts->get(FontID::Main);
-	sf::Vector2f windowSize(context.window->getSize());
-
-	mGameOverText.setFont(font);
-	//if (context.player->getFightStatus() == FightStatus::Player1Win)
-		//mBackgroundSprite.setTexture(context.textures->get(TextureID::Player1Win)); //Sets the background image
-	//else
-		//mGameOverText.setString("Mission successful!");
-
-	mGameOverText.setCharacterSize(70);
-	centreOrigin(mGameOverText);
-	mGameOverText.setPosition(0.5f * windowSize.x, 0.4f * windowSize.y);
+	mBackgroundSprite.setTexture(context.textures->get(TextureID::Player1Win)); //Sets the background image
 }
 
 void GameOverState::draw()
 {
 	sf::RenderWindow& window = *getContext().window;
-	window.setView(window.getDefaultView());
-
-	// Create dark, semitransparent background
-	sf::RectangleShape backgroundShape;
-	backgroundShape.setFillColor(sf::Color(0, 0, 0, 150));
-	backgroundShape.setSize(window.getView().getSize());
-
-	window.draw(backgroundShape);
-	window.draw(mGameOverText);
+	window.draw(mBackgroundSprite);
 }
 
 bool GameOverState::update(sf::Time dt)
 {
-	// Show state for 3 seconds, after return to menu
-	mElapsedTime += dt;
-	if (mElapsedTime > sf::seconds(3))
-	{
-		requestStackClear();
-		requestStackPush(StateID::Menu);
-	}
 	return false;
 }
 
-bool GameOverState::handleEvent(const sf::Event&)
+bool GameOverState::handleEvent(const sf::Event& event)
 {
-	return false;
+	if (event.type == sf::Event::KeyPressed)
+	{
+		requestStackPop();
+		requestStackPush(StateID::Menu);
+	}
+	return true;
 }

@@ -16,11 +16,13 @@ bool GameState::update(sf::Time dt)
 	mWorld.update(dt);
 
 	int check = mWorld.outOfBounds();
-	if (check = 2) {
-		//requestStackPush(StateID::Title);
+	if (check == 2) {
+		requestStackPop();
+		requestStackPush(StateID::GameOver);
 	}
-	else if (check = 4) {
-		mPlayer.setFightStatus(FightStatus::Player2Win);
+	else if (check == 4) {
+		requestStackPop();
+		requestStackPush(StateID::GameOver);
 	}
 	CommandQueue& commands = mWorld.getCommandQueue();
 	mPlayer.handleRealtimeInput(commands);
