@@ -1,4 +1,5 @@
 //Antony Saputra D00197615
+//Conor Byrne D00185566
 
 #include "Island.hpp"
 #include "DataTable.hpp" //needed for access to datatable to gain access to Island details

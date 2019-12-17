@@ -1,4 +1,5 @@
 //Antony Saputra D00197615
+//Conor Byrne D00185566
 
 template<typename Resource, typename Identifier>
 void ResourceHolder<Resource, Identifier>::load(Identifier id, const std::string& filename)
